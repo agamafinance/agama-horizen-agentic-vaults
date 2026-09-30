@@ -1,0 +1,48 @@
+e1 momentum: committed 2 order(s)
+e1 mean-reversion: committed 1 order(s)
+e1 momentum: settled, NAV 1,000,000.00 USDC
+e1 mean-reversion: settled, NAV 1,000,000.00 USDC
+e2 momentum: committed 2 order(s)
+e2 mean-reversion: committed 1 order(s)
+e2 momentum: settled, NAV 1,000,110.01 USDC
+e2 mean-reversion: settled, NAV 1,000,152.38 USDC
+e3 momentum: committed 2 order(s)
+e3 mean-reversion: committed 1 order(s)
+e3 momentum: settled, NAV 1,000,618.08 USDC
+e3 mean-reversion: settled, NAV 1,000,152.38 USDC
+e4 momentum: committed 2 order(s)
+e4 mean-reversion: committed 1 order(s)
+e4 momentum: settled, NAV 999,628.67 USDC
+e4 mean-reversion: settled, NAV 999,964.26 USDC
+e5 momentum: committed 2 order(s)
+e5 mean-reversion: committed 2 order(s)
+e5 momentum: settled, NAV 1,000,114.72 USDC
+e5 mean-reversion: settled, NAV 1,000,094.69 USDC
+e6 momentum: committed 2 order(s)
+e6 mean-reversion: committed 2 order(s)
+e6 momentum: settled, NAV 1,000,268.56 USDC
+e6 mean-reversion: settled, NAV 999,676.28 USDC
+e7 momentum: committed 2 order(s)
+e7 mean-reversion: committed 2 order(s)
+e7 momentum: settled, NAV 1,000,050.22 USDC
+e7 mean-reversion: settled, NAV 999,383.08 USDC
+e8 momentum: committed 2 order(s)
+e8 mean-reversion: committed 2 order(s)
+e8 momentum: settled, NAV 1,000,594.24 USDC
+e8 mean-reversion: settled, NAV 1,000,605.33 USDC
+e9 momentum: committed 2 order(s)
+e9 mean-reversion: committed 2 order(s)
+e9 momentum: settled, NAV 1,000,547.06 USDC
+e9 mean-reversion: settled, NAV 1,000,004.67 USDC
+e10 momentum: committed 2 order(s)
+e10 mean-reversion: committed 2 order(s)
+e10 momentum: settled, NAV 1,000,874.43 USDC
+e10 mean-reversion: settled, NAV 1,000,881.32 USDC
+e11 momentum: committed 1 order(s)
+e11 mean-reversion: committed 2 order(s)
+e11 momentum: settled, NAV 999,644.77 USDC
+e11 mean-reversion: settled, NAV 999,115.04 USDC
+e12 momentum: committed 2 order(s)
+e12 mean-reversion: committed 2 order(s)
+e12 momentum: settled, NAV 1,000,149.51 USDC
+e12 mean-reversion: settled, NAV 1,000,073.73 USDC
