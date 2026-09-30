@@ -1,0 +1,34 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  noir:
+    name: nargo test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Noir
+        uses: noir-lang/noirup@v0.1.3
+        with:
+          toolchain: 1.0.0-beta.13
+      - name: Circuit tests
+        working-directory: zk/strategy_epoch
+        run: nargo test
+
+  forge:
+    name: forge test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.4.1
+      - name: Contract tests against real proofs
+        working-directory: contracts
+        run: forge test -vv --summary
