@@ -15,6 +15,7 @@ Every transaction hash is appended to deployment/testnet-log.jsonl.
 """
 
 import json
+import os
 import secrets
 import subprocess
 import sys
@@ -34,6 +35,18 @@ KEYS = ROOT / "agents" / ".keys"
 STATE = ROOT / "agents" / "state"
 LOG = ROOT / "deployment" / "testnet-log.jsonl"
 SCALE = 1_000_000
+
+
+def oracle_key():
+    """The oracle key also funds the strategist keys on testnet. Read from the
+    ORACLE_PK environment variable, or from a .env file at the repo root."""
+    if os.environ.get("ORACLE_PK"):
+        return os.environ["ORACLE_PK"]
+    env = ROOT / ".env"
+    for line in env.read_text().splitlines() if env.exists() else []:
+        if line.startswith("ORACLE_PK="):
+            return line.split("=", 1)[1].strip()
+    raise SystemExit("set ORACLE_PK, or put ORACLE_PK=... in .env")
 
 
 def sh(*args):
@@ -82,8 +95,7 @@ def save(name, st):
 
 def setup():
     KEYS.mkdir(exist_ok=True)
-    oracle_key = DEP["oracle_key_env"]
-    funder = sh("bash", "-c", f"source {ROOT.parent / 'agama-horizen' / '.env.local'} && echo ${oracle_key}")
+    funder = oracle_key()
     for name, cfg in STRATEGIES.items():
         kf = KEYS / f"{name}.json"
         if not kf.exists():
@@ -98,7 +110,7 @@ def setup():
 
 
 def epochs(n):
-    oracle = sh("bash", "-c", f"source {ROOT.parent / 'agama-horizen' / '.env.local'} && echo ${DEP['oracle_key_env']}")
+    oracle = oracle_key()
     cap = DEP["capital"]
     hist_file = STATE / "prices.json"
     history = json.loads(hist_file.read_text()) if hist_file.exists() else [spot_prices()]

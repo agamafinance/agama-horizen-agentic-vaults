@@ -6,7 +6,6 @@
  "verifier": "0x63A1A2bA8a4caDd82e6ff7431b38f695f994AC1f",
  "hub": "0x292ED0c07E03Bb4972009Ac2bF1126cD63c1a361",
  "oracle": "0x43762739CEA3B2192A08b7a4C09102ed2913648A",
- "oracle_key_env": "DEPLOYER_PK",
  "genesis": 1790779436,
  "epoch_length": 180,
  "capital": 1000000000000

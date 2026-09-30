@@ -15,6 +15,8 @@ Results go to deployment/attacks.json.
 """
 
 import json
+import os
+import re
 import subprocess
 import sys
 import time
@@ -29,6 +31,18 @@ RPC, HUB, CAP = DEP["rpc"], DEP["hub"], DEP["capital"]
 KEYS = ROOT / "agents" / ".keys"
 OUT = ROOT / "deployment" / "attacks.json"
 MASK, CAPBPS = 0b0110, 4_000
+
+
+def oracle_key():
+    """The oracle key also funds the strategist keys on testnet. Read from the
+    ORACLE_PK environment variable, or from a .env file at the repo root."""
+    if os.environ.get("ORACLE_PK"):
+        return os.environ["ORACLE_PK"]
+    env = ROOT / ".env"
+    for line in env.read_text().splitlines() if env.exists() else []:
+        if line.startswith("ORACLE_PK="):
+            return line.split("=", 1)[1].strip()
+    raise SystemExit("set ORACLE_PK, or put ORACLE_PK=... in .env")
 
 
 def sh(*a):
@@ -59,8 +73,8 @@ def reason(key_addr, sig, block, *a):
 def wait_prices(epoch):
     while call("pricesPosted(uint64)(bool)", epoch) != "true":
         time.sleep(5)
-    return [int(x) for x in sh("cast", "call", HUB, "pricesAt(uint64)(uint64[4])", str(epoch), "--rpc-url", RPC)
-            .strip("[]").replace(" ", "").split(",")]
+    raw = sh("cast", "call", HUB, "pricesAt(uint64)(uint64[4])", str(epoch), "--rpc-url", RPC)
+    return [int(x) for x in re.findall(r"\d+", re.sub(r" \[[^\]]+\]", "", raw))][:4]
 
 
 def next_open_epoch():
@@ -78,11 +92,18 @@ def main():
         w = json.loads(sh("cast", "wallet", "new", "--json"))[0]
         kf.write_text(json.dumps({"address": w["address"], "key": w["private_key"]}))
     k = json.loads(kf.read_text())
-    funder = sh("bash", "-c", f"source {ROOT.parent / 'agama-horizen' / '.env.local'} && echo $DEPLOYER_PK")
+    funder = oracle_key()
     if int(sh("cast", "balance", k["address"], "--rpc-url", RPC)) < 200_000_000_000_000:
         sh("cast", "send", k["address"], "--value", "0.0004ether", "--private-key", funder, "--rpc-url", RPC)
-    send(k["key"], "register(string,uint8,uint64)", "attacker", MASK, CAPBPS)
-    sid = int(call("strategyCount()(uint256)")) - 1
+    sid = None
+    for i in range(int(call("strategyCount()(uint256)"))):  # reuse our strategy if a previous run registered it
+        info = sh("cast", "call", HUB, "strategy(uint256)((address,uint8,uint64,bytes32,uint64,bool,uint64,uint64,uint64,uint32,string))",
+                  str(i), "--rpc-url", RPC)
+        if k["address"].lower() in info.lower() and ", false," in info:
+            sid = i
+    if sid is None:
+        send(k["key"], "register(string,uint8,uint64)", "attacker", MASK, CAPBPS)
+        sid = int(call("strategyCount()(uint256)")) - 1
     results = {"strategy": sid, "attacker": k["address"], "hub": HUB, "attacks": []}
 
     def record(name, target, sig, args, txh, ok, blk):
