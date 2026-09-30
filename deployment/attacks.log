@@ -1,0 +1,44 @@
+late orders: tx 0x2512b5375699e8603d3fc2a408cb885cef8933ec55b7805f0e6d8bc993ca4727 reverted=True
+inflated NAV: tx 0x161da98eb45eff75807491520aba414ab17925266e3055cb09737610fce645a4 reverted=True
+swapped orders: tx 0xcf2a3118dbfc69488c6c25efa4d25d1baa6a0f315c521fffc7b2c887074743b9 reverted=True
+{
+ "strategy": 2,
+ "attacker": "0x0E0D3661E1F2A3f48DB9b3E3A9C685f833A3D594",
+ "hub": "0x292ED0c07E03Bb4972009Ac2bF1126cD63c1a361",
+ "attacks": [
+  {
+   "attack": "late orders",
+   "targeted_check": "EpochClosed",
+   "tx": "0x2512b5375699e8603d3fc2a408cb885cef8933ec55b7805f0e6d8bc993ca4727",
+   "mined": true,
+   "reverted": true,
+   "refused_by": "data: \"0x2e5386d60000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000006abd2194\""
+  },
+  {
+   "attack": "inflated NAV",
+   "targeted_check": "verifier (NAV is a proof output)",
+   "tx": "0x161da98eb45eff75807491520aba414ab17925266e3055cb09737610fce645a4",
+   "mined": true,
+   "reverted": true,
+   "refused_by": "data: \"0x9fc3a218\"",
+   "honest_settlement_same_proof": {
+    "tx": "0x08b709026444ebb205e8ad2d6482609bc87bd148a8a30c0073233f1c363bd9dc",
+    "ok": true,
+    "nav": 1000000000000
+   }
+  },
+  {
+   "attack": "swapped orders",
+   "targeted_check": "verifier (orders commitment is a public input)",
+   "tx": "0xcf2a3118dbfc69488c6c25efa4d25d1baa6a0f315c521fffc7b2c887074743b9",
+   "mined": true,
+   "reverted": true,
+   "refused_by": "data: \"0x9fc3a218\"",
+   "honest_settlement_committed_orders": {
+    "tx": "0x000654bebdcf2300832d6b9befefb40d62d3b9167e346c24314cdf469389bd2e",
+    "ok": true,
+    "nav": 1000034600000
+   }
+  }
+ ]
+}
