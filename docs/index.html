@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agama agentic vaults · live track record</title>
+<style>
+  :root { --bg:#254839; --card:#2e4a3c; --inner:#37574a; --line:#6e8c7d; --mint:#9fd9b8; --muted:#c2d6cb; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:#fff; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; }
+  main { max-width:1080px; margin:0 auto; padding:48px 24px 64px; }
+  h1 { font-size:34px; margin:0 0 8px; }
+  .sub { color:var(--muted); margin:0 0 28px; line-height:1.5; }
+  .meta { color:var(--muted); font-size:13px; margin-bottom:28px; }
+  .meta a, td a, .atk a, .private a { color:var(--mint); text-decoration:none; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; }
+  .card { background:var(--card); border:1.5px solid #fff; border-radius:16px; padding:20px; }
+  .card h2 { margin:0 0 4px; font-size:21px; }
+  .mandate { color:var(--muted); font-size:13px; margin-bottom:14px; }
+  .kpis { display:flex; gap:18px; margin-bottom:12px; }
+  .kpi b { display:block; font-size:20px; }
+  .kpi span { color:var(--muted); font-size:12px; }
+  .pos { color:var(--mint); } .neg { color:#f3a7a7; }
+  svg { width:100%; height:90px; display:block; }
+  .private { margin-top:10px; font-size:12px; color:var(--muted); border-top:1px solid var(--line); padding-top:10px; }
+  h3 { margin:40px 0 12px; font-size:19px; }
+  .atk { background:var(--card); border:1.5px solid var(--mint); border-radius:14px; padding:14px 18px; margin-bottom:10px; font-size:14px; }
+  .atk b { color:#fff; } .atk span { color:var(--muted); }
+  footer { margin-top:40px; color:var(--muted); font-size:13px; line-height:1.6; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Private books, public track records</h1>
+  <p class="sub">Each strategy below keeps its balances and orders off chain. Horizen only holds a commitment to its book,
+  and every NAV shown was produced by a zero-knowledge proof the contract verified. Read live from Horizen testnet,
+  no server in between.</p>
+  <div class="meta" id="meta">Loading from Horizen testnet…</div>
+  <div class="grid" id="grid"></div>
+
+  <h3>Refused on chain</h3>
+  <p class="sub" style="margin-bottom:14px">Mined transactions from a separate test strategy. Each one is set up so every check before the targeted one passes.</p>
+  <div class="atk"><b>Orders after the close.</b> <span>Committed for an epoch already over, reverted with EpochClosed.</span>
+    <a target="_blank" href="https://horizen-testnet.explorer.caldera.xyz/tx/0x2512b5375699e8603d3fc2a408cb885cef8933ec55b7805f0e6d8bc993ca4727">tx ↗</a></div>
+  <div class="atk"><b>Inflated NAV.</b> <span>A valid proof with 100,000 USDC more typed next to it, refused by the verifier. The same proof with the true NAV settled next.</span>
+    <a target="_blank" href="https://horizen-testnet.explorer.caldera.xyz/tx/0x161da98eb45eff75807491520aba414ab17925266e3055cb09737610fce645a4">tx ↗</a></div>
+  <div class="atk"><b>Swapped orders.</b> <span>One order set committed, a larger one proven, refused by the verifier. The committed set settled next.</span>
+    <a target="_blank" href="https://horizen-testnet.explorer.caldera.xyz/tx/0xcf2a3118dbfc69488c6c25efa4d25d1baa6a0f315c521fffc7b2c887074743b9">tx ↗</a></div>
+
+  <footer>Sandbox: strategies trade virtual capital at Binance closing prices for ETH, BTC and ZEN.
+  Source: <a style="color:var(--mint)" href="https://github.com/agamafinance/agama-agentic-vaults">agamafinance/agama-agentic-vaults</a>.</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script>
+const RPC = "https://horizen-testnet.rpc.caldera.xyz/http";
+const HUB = "0x292ED0c07E03Bb4972009Ac2bF1126cD63c1a361";
+const FROM = 29190254;
+const EXPLORER = "https://horizen-testnet.explorer.caldera.xyz";
+const ABI = [
+  "function strategyCount() view returns (uint256)",
+  "function strategy(uint256) view returns (tuple(address owner,uint8 allowedMask,uint64 maxWeightBps,bytes32 book,uint64 lastEpoch,bool started,uint64 nav,uint64 peakNav,uint64 maxDrawdownBps,uint32 epochsSettled,string name))",
+  "function sandboxCapital() view returns (uint64)",
+  "function currentEpoch() view returns (uint64)",
+  "event EpochSettled(uint256 indexed id, uint64 indexed epoch, bytes32 book, uint64 nav, uint64 drawdownBps)",
+];
+const fmt = n => n.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+
+function spark(points, cap) {
+  if (points.length < 2) return "<svg></svg>";
+  const ys = points.map(p => p.nav), lo = Math.min(cap, ...ys), hi = Math.max(cap, ...ys), span = (hi - lo) || 1;
+  const x = i => 4 + i * (292 / (points.length - 1)), y = v => 82 - (v - lo) / span * 74;
+  const d = points.map((p, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.nav).toFixed(1)).join(" ");
+  return `<svg viewBox="0 0 300 90"><line x1="0" x2="300" y1="${y(cap)}" y2="${y(cap)}" stroke="#6e8c7d" stroke-dasharray="3 3"/>
+    <path d="${d}" fill="none" stroke="#9fd9b8" stroke-width="2"/></svg>`;
+}
+
+(async () => {
+  const provider = new ethers.JsonRpcProvider(RPC);
+  const hub = new ethers.Contract(HUB, ABI, provider);
+  const [count, cap, epoch] = await Promise.all([hub.strategyCount(), hub.sandboxCapital(), hub.currentEpoch()]);
+  const capital = Number(cap) / 1e6;
+  const logs = await hub.queryFilter(hub.filters.EpochSettled(), FROM, "latest");
+  document.getElementById("meta").innerHTML =
+    `Hub <a target="_blank" href="${EXPLORER}/address/${HUB}">${HUB.slice(0,10)}…</a> · epoch ${epoch} · ${logs.length} proofs verified on chain`;
+  const grid = document.getElementById("grid");
+  for (let i = 0; i < Number(count); i++) {
+    const s = await hub.strategy(i);
+    if (!s.started || s.name === "attacker") continue; // the attack strategy is listed below
+    const pts = logs.filter(l => Number(l.args.id) === i).map(l => ({epoch:Number(l.args.epoch), nav:Number(l.args.nav)/1e6, tx:l.transactionHash}));
+    const nav = Number(s.nav) / 1e6, ret = (nav - capital) / capital * 100;
+    const assets = ["ETH","BTC","ZEN"].filter((_, k) => Number(s.allowedMask) & (2 << k)).join(" · ");
+    const last = pts[pts.length - 1];
+    grid.insertAdjacentHTML("beforeend", `<div class="card">
+      <h2>${s.name}</h2>
+      <div class="mandate">Mandate: ${assets}, at most ${Number(s.maxWeightBps)/100}% of NAV in any one</div>
+      <div class="kpis">
+        <div class="kpi"><b>${fmt(nav)}</b><span>proven NAV, USDC</span></div>
+        <div class="kpi"><b class="${ret >= 0 ? "pos" : "neg"}">${ret >= 0 ? "+" : ""}${ret.toFixed(3)}%</b><span>return</span></div>
+        <div class="kpi"><b>${(Number(s.maxDrawdownBps)/100).toFixed(2)}%</b><span>max drawdown</span></div>
+      </div>
+      ${spark(pts, capital)}
+      <div class="private">${s.epochsSettled} epochs proven · balances and orders: private · book ${s.book.slice(0,12)}…
+        ${last ? `· <a target="_blank" href="${EXPLORER}/tx/${last.tx}">last proof ↗</a>` : ""}</div>
+    </div>`);
+  }
+})().catch(e => { document.getElementById("meta").textContent = "Could not reach Horizen testnet: " + e.message; });
+</script>
+</body>
+</html>
