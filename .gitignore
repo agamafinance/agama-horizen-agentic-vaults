@@ -1,0 +1,11 @@
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+zk/*/target/
+zk/*/Prover.toml
+__pycache__/
+.DS_Store
+.env
+.env.*
+agents/.keys/
+agents/state/
