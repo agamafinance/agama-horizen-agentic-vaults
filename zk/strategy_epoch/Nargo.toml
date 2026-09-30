@@ -1,0 +1,6 @@
+[package]
+name = "strategy_epoch"
+type = "bin"
+authors = [""]
+
+[dependencies]
