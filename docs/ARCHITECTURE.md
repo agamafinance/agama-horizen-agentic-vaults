@@ -70,7 +70,7 @@ drawdown it declared.
 
 | | Scope | Evidence of completion |
 |---|---|---|
-| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; hub and verifier on Horizen testnet; two sandbox strategies over 13 epochs; three attacks refused on chain | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh` |
+| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; hub and verifier on Horizen testnet; two sandbox strategies over 15 epochs, 30 proven settlements; three attacks refused on chain | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh` |
 | **M1, the hard part** | netting across strategies with its own proof; shared pool; ERC-4626 vault per strategy priced at proven NAV; ZEN bond and mandate registry; strategist SDK; three or more strategies including two external ones over two weeks of hourly epochs; a public attack suite covering every guard | public repository, source-verified contracts, keyless state reader, transaction hashes |
 | **M2, audit** | contracts and Noir circuits audited by a Foundation-approved auditor; fixes; public report | the report |
 | **M3, mainnet usage** | mainnet launch tied to ZENDEX mainnet, or a fixed date with Base execution if ZENDEX is not live; three months measured on the RFP's metrics: execution volume routed, active strategies with external depositors, unique depositors, total deposited, fee revenue | on-chain figures |
