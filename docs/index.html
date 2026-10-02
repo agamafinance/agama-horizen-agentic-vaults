@@ -80,7 +80,13 @@ function spark(points, cap) {
   const hub = new ethers.Contract(HUB, ABI, provider);
   const [count, cap, epoch] = await Promise.all([hub.strategyCount(), hub.sandboxCapital(), hub.currentEpoch()]);
   const capital = Number(cap) / 1e6;
-  const logs = await hub.queryFilter(hub.filters.EpochSettled(), FROM, "latest");
+  // the RPC caps log queries at 100,000 blocks and Horizen makes one a second,
+  // so walk the range in chunks
+  const head = await provider.getBlockNumber();
+  const logs = [];
+  for (let a = FROM; a <= head; a += 90000) {
+    logs.push(...await hub.queryFilter(hub.filters.EpochSettled(), a, Math.min(a + 89999, head)));
+  }
   document.getElementById("meta").innerHTML =
     `Hub <a target="_blank" href="${EXPLORER}/address/${HUB}">${HUB.slice(0,10)}…</a> · epoch ${epoch} · ${logs.length} proofs verified on chain`;
   const grid = document.getElementById("grid");

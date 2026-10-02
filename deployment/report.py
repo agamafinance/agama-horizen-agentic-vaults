@@ -21,8 +21,12 @@ def sh(*a):
 
 
 def settled():
-    raw = json.loads(sh("cast", "logs", "--address", HUB, "--from-block", "29190254", "--json", "--rpc-url", RPC,
-                        "EpochSettled(uint256 indexed,uint64 indexed,bytes32,uint64,uint64)"))
+    # the RPC caps log queries at 100,000 blocks, Horizen makes one a second
+    head = int(sh("cast", "block-number", "--rpc-url", RPC))
+    raw = []
+    for a in range(29190254, head + 1, 90000):
+        raw += json.loads(sh("cast", "logs", "--address", HUB, "--from-block", str(a), "--to-block", str(min(a + 89999, head)),
+                             "--json", "--rpc-url", RPC, "EpochSettled(uint256 indexed,uint64 indexed,bytes32,uint64,uint64)"))
     out = []
     for log in raw:
         data = log["data"][2:]
