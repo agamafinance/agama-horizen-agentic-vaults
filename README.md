@@ -19,6 +19,68 @@ line: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ---
 
+## Architecture
+
+Solid boxes run today on Horizen testnet. Dashed ones are the next milestone.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#ffffff','primaryTextColor':'#111827','primaryBorderColor':'#374151','lineColor':'#9ca3af','edgeLabelBackground':'#ffffff','tertiaryColor':'#ffffff','clusterBkg':'#ffffff','clusterBorder':'#d1d5db','titleColor':'#111827','fontSize':'16px'}}}%%
+flowchart TB
+    subgraph offchain["OFF-CHAIN · held by each strategist"]
+        direction LR
+        STRAT["Strategist agent<br/>any model: quant, rules, AI<br/>keeps its book, orders and salts"]
+        PROVER["Prover · Noir + UltraHonk<br/>strategy_epoch circuit<br/>book · fills · mandate · NAV · under 1 s"]
+    end
+
+    subgraph inputs[" "]
+        direction LR
+        FEED["Price oracle<br/>exchange closes on testnet<br/>Stork on mainnet"]
+        DEP["Depositors<br/>choose on proven track record"]
+    end
+
+    subgraph horizen["HORIZEN L3 · testnet 2651420"]
+        direction LR
+        HUB["AgentVaultHub<br/>commitOrders · postPrices · settle<br/>book commitments · proven NAV · drawdown"]
+        VER["EpochVerifier<br/>UltraHonk · ~2.1M gas"]
+        VAULTS["Strategy vaults · ERC-4626<br/>ZEN bond · public ranking"]
+    end
+
+    subgraph market["EXECUTION · next milestone"]
+        direction LR
+        NET["Netting engine<br/>one net order per epoch<br/>v1 operator · v2 Vela enclave"]
+        ZENDEX["ZENDEX<br/>private DEX on Horizen"]
+        BASE["Base liquidity<br/>via the cluster's private bridge"]
+    end
+
+    STRAT -->|"1 · orders hash, before the close"| HUB
+    STRAT --> PROVER
+    FEED -->|"2 · closing prices, after the close"| HUB
+    PROVER -->|"3 · proof, new commitment, NAV"| HUB
+    HUB -->|"verify"| VER
+    DEP -.-> VAULTS
+    VAULTS -.-> HUB
+    HUB -.-> NET
+    NET -.-> ZENDEX
+    NET -.-> BASE
+
+    classDef actor fill:#eff6ff,stroke:#2563eb,color:#1e40af
+    classDef core fill:#ffffff,stroke:#374151,color:#111827
+    classDef offchain fill:#fff7ed,stroke:#f97316,color:#c2410c
+    classDef feed fill:#faf5ff,stroke:#a855f7,color:#7e22ce
+    classDef integration fill:#f0fdf4,stroke:#22c55e,color:#15803d
+    classDef next fill:#ffffff,stroke:#9ca3af,color:#6b7280,stroke-dasharray:5 4
+
+    class STRAT,DEP actor
+    class HUB,VER core
+    class PROVER offchain
+    class FEED feed
+    class ZENDEX,BASE integration
+    class NET,VAULTS next
+    style inputs fill:#ffffff,stroke:#ffffff
+```
+
+Legend: blue = actor · orange = off-chain component · purple = price feed · green = Horizen app cluster · dark outline = core Agama contract · dashed grey = next milestone.
+
 ## What it proves
 
 Each strategy keeps its book off chain. The chain holds a commitment to it and
@@ -111,7 +173,7 @@ python3 deployment/report.py           # the tables above, rebuilt from chain da
 | `contracts/test/` | the honest path and every refusal, against real proofs |
 | `agents/` | the two strategies, the live runner, the attack script |
 | `deployment/` | addresses, transaction log, public state reader, bytecode check, report |
-| `docs/` | architecture and milestones, the diagram, the live track record page |
+| `docs/` | architecture and milestones, the diagrams (Mermaid source and rendered), the live track record page |
 
 Settlement costs about 2.1M gas, most of it the UltraHonk verifier, which is a
 fraction of a cent on Horizen. Proving takes under a second on a laptop.
