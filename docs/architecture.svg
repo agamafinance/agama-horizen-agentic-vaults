@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" font-family="-apple-system,Helvetica Neue,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b7280"/></marker>
+  </defs>
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <text x="80" y="78" font-size="34" font-weight="700" fill="#111827">Agama agentic vaults on Horizen</text>
+  <text x="80" y="112" font-size="19" fill="#6b7280">Private books, public track records · solid = live on testnet · dashed = next milestone</text>
+
+  <!-- band labels -->
+  <g font-size="15" font-weight="700" fill="#6b7280" letter-spacing="1.2">
+    <text x="80" y="170">OFF-CHAIN · HELD BY EACH STRATEGIST</text>
+    <text x="80" y="470">HORIZEN L3 · TESTNET 2651420</text>
+    <text x="80" y="800">EXECUTION · NEXT MILESTONE</text>
+  </g>
+  <rect x="60" y="182" width="1800" height="220" rx="14" fill="none" stroke="#e5e7eb"/>
+  <rect x="60" y="482" width="1800" height="250" rx="14" fill="none" stroke="#d1d5db"/>
+  <rect x="60" y="812" width="1800" height="220" rx="14" fill="none" stroke="#e5e7eb" stroke-dasharray="6 5"/>
+
+  <!-- off-chain -->
+  <rect x="120" y="220" width="400" height="145" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text font-size="22" fill="#1e40af"><tspan x="320" y="270" text-anchor="middle" font-weight="700">Strategist agent</tspan><tspan x="320" y="302" text-anchor="middle">any model: quant, rules, AI</tspan><tspan x="320" y="332" text-anchor="middle">keeps its book, orders, logic</tspan></text>
+
+  <rect x="660" y="220" width="460" height="145" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text font-size="22" fill="#c2410c"><tspan x="890" y="265" text-anchor="middle" font-weight="700">Prover · Noir + UltraHonk</tspan><tspan x="890" y="297" text-anchor="middle">strategy_epoch circuit</tspan><tspan x="890" y="329" text-anchor="middle">book · fills · mandate · NAV · &lt;1 s</tspan></text>
+
+  <rect x="1300" y="220" width="250" height="145" rx="10" fill="#faf5ff" stroke="#a855f7" stroke-width="2"/>
+  <text font-size="22" fill="#7e22ce"><tspan x="1425" y="270" text-anchor="middle" font-weight="700">Price oracle</tspan><tspan x="1425" y="302" text-anchor="middle">exchange closes</tspan><tspan x="1425" y="332" text-anchor="middle">Stork on mainnet</tspan></text>
+
+  <rect x="1600" y="220" width="220" height="145" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text font-size="22" fill="#1e40af"><tspan x="1710" y="275" text-anchor="middle" font-weight="700">Depositors</tspan><tspan x="1710" y="307" text-anchor="middle">pick on proven</tspan><tspan x="1710" y="335" text-anchor="middle">track record</tspan></text>
+
+  <!-- horizen -->
+  <rect x="120" y="520" width="400" height="170" rx="10" fill="#fff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 5"/>
+  <text font-size="22" fill="#6b7280"><tspan x="320" y="580" text-anchor="middle" font-weight="700">Strategy vaults · ERC-4626</tspan><tspan x="320" y="614" text-anchor="middle">ZEN bond · public ranking</tspan></text>
+
+  <rect x="660" y="510" width="460" height="190" rx="10" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <text font-size="22" fill="#111827"><tspan x="890" y="556" text-anchor="middle" font-weight="700" font-size="25">AgentVaultHub</tspan><tspan x="890" y="594" text-anchor="middle">commitOrders · postPrices · settle</tspan><tspan x="890" y="628" text-anchor="middle">book commitments</tspan><tspan x="890" y="662" text-anchor="middle">proven NAV · drawdown</tspan></text>
+
+  <rect x="1300" y="545" width="300" height="120" rx="10" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <text font-size="22" fill="#111827"><tspan x="1450" y="595" text-anchor="middle" font-weight="700">EpochVerifier</tspan><tspan x="1450" y="628" text-anchor="middle">UltraHonk · ~2.1M gas</tspan></text>
+
+  <!-- execution -->
+  <rect x="660" y="850" width="460" height="145" rx="10" fill="#fff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 5"/>
+  <text font-size="22" fill="#6b7280"><tspan x="890" y="900" text-anchor="middle" font-weight="700">Netting engine</tspan><tspan x="890" y="934" text-anchor="middle">one net order per epoch</tspan><tspan x="890" y="966" text-anchor="middle">v1 operator · v2 Vela enclave</tspan></text>
+  <rect x="1300" y="850" width="250" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text font-size="22" fill="#15803d"><tspan x="1425" y="912" text-anchor="middle" font-weight="700">ZENDEX</tspan><tspan x="1425" y="944" text-anchor="middle">private DEX</tspan></text>
+  <rect x="1600" y="850" width="220" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text font-size="22" fill="#15803d"><tspan x="1710" y="912" text-anchor="middle" font-weight="700">Base liquidity</tspan><tspan x="1710" y="944" text-anchor="middle">private bridge</tspan></text>
+
+  <!-- arrows -->
+  <g stroke="#6b7280" stroke-width="2.2" fill="none" marker-end="url(#a)">
+    <path d="M520 292 H652"/>
+    <path d="M300 365 V430 H720 V502"/>
+    <path d="M890 365 V502"/>
+    <path d="M1425 365 V430 H1060 V502"/>
+    <path d="M1120 605 H1292"/>
+  </g>
+  <g stroke="#9ca3af" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a)">
+    <path d="M1710 365 V752 H320 V698"/>
+    <path d="M520 605 H652"/>
+    <path d="M890 700 V842"/>
+    <path d="M1120 922 H1292"/>
+    <path d="M1120 975 H1250 V1012 H1710 V1003"/>
+  </g>
+  <g font-size="19" fill="#111827">
+    <rect x="315" y="410" width="0" height="0"/>
+    <text x="330" y="424" font-weight="600">1 · orders hash, before the close</text>
+    <text x="878" y="397" font-weight="600" text-anchor="end">3 · proof, new commitment, NAV</text>
+    <text x="1180" y="424" font-weight="600">2 · prices, after the close</text>
+    <text x="1140" y="595">verify</text>
+  </g>
+</svg>

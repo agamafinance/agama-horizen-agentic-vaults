@@ -4,7 +4,7 @@ This document describes the full protocol this repository is the start of,
 what is already running, and what each milestone adds. It follows the order of
 Horizen's RFP 1, private agentic trading vaults.
 
-![Target architecture](rfp1-private-agentic-vaults.png)
+![Architecture](architecture.png)
 
 ## The RFP, line by line
 
