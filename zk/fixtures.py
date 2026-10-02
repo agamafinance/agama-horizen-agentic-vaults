@@ -31,4 +31,4 @@ h = lambda x: "0x%064x" % x
 json.dump({"oc5": h(oc5), "nc5": h(nc5), "nav5": nav5, "prices5": e5,
            "oc6": h(oc6), "nc6": h(nc6), "nav6": nav6, "prices6": e6,
            "capital": CAP, "mask": MASK, "maxw": MAXW}, open(FIX / "epochs.json", "w"), indent=1)
-print("nav5", nav5, "nav6", nav6)
+print(f"epoch 5 proven: NAV {nav5 / 1e6:,.2f} USDC  ·  epoch 6 proven: NAV {nav6 / 1e6:,.2f} USDC  ·  proofs {len(pr5):,} B each")
