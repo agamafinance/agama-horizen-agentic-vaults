@@ -9,6 +9,9 @@ paired with verifiable performance attestation". This repository is the
 attestation half, running on Horizen testnet today, built before we asked for
 anything.
 
+**▶ 2-minute demo: [youtu.be/Sw_V7lslx4s](https://youtu.be/Sw_V7lslx4s)**, the architecture, the hub on the Horizen
+explorer, proofs built and verified, a live epoch on testnet, and an attack refused by the verifier.
+
 The full design, what each milestone adds, and how it maps to the RFP line by
 line: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
@@ -22,6 +25,10 @@ line: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 ## Architecture
 
 Solid boxes run today on Horizen testnet. Dashed ones are the next milestone.
+
+![Architecture](docs/architecture.png)
+
+The same flow as a Mermaid flowchart:
 
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'background':'#ffffff','primaryColor':'#ffffff','primaryTextColor':'#111827','primaryBorderColor':'#374151','lineColor':'#9ca3af','edgeLabelBackground':'#ffffff','tertiaryColor':'#ffffff','clusterBkg':'#ffffff','clusterBorder':'#d1d5db','titleColor':'#111827','fontSize':'16px'}}}%%
