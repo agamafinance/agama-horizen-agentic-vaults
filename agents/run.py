@@ -132,15 +132,16 @@ def epochs(n):
             orders = cfg["fn"](book, history, cfg["cap_bps"])
             salt = prover.rand_salt()
             oc = prover.order_commit(st["id"], e, orders, salt)
-            send(k["key"], "commitOrders(uint256,uint64,bytes32)", st["id"], e, "0x%064x" % oc, what=f"{name} commit e{e}")
+            txh = send(k["key"], "commitOrders(uint256,uint64,bytes32)", st["id"], e, "0x%064x" % oc, what=f"{name} commit e{e}")
             st["pending"] = {"epoch": e, "orders": orders, "salt": salt, "commit": oc}
             save(name, st)
-            print(f"e{e} {name}: committed {len(orders)} order(s)")
+            print(f"e{e} {name}: committed {len(orders)} order(s) as 0x{oc:064x}"[:72] + f"…  tx {txh[:12]}…", flush=True)
 
         # 2. oracle posts closing prices after the close
         time.sleep(max(0, closes - time.time()) + 3)
         px = spot_prices()
-        send(oracle, "postPrices(uint64,uint64[4])", e, "[" + ",".join(map(str, px)) + "]", what=f"prices e{e}")
+        txh = send(oracle, "postPrices(uint64,uint64[4])", e, "[" + ",".join(map(str, px)) + "]", what=f"prices e{e}")
+        print(f"e{e} oracle: ETH {px[1] / SCALE:,.2f} · BTC {px[2] / SCALE:,.2f} · ZEN {px[3] / SCALE:,.3f}  tx {txh[:12]}…", flush=True)
         history.append(px)
         hist_file.write_text(json.dumps(history))
 
@@ -156,11 +157,11 @@ def epochs(n):
                 orders_salt=p["salt"], new_salt=new_salt, old_commit=st.get("commit", 0), orders_commit=p["commit"],
                 prices=px, allowed_mask=cfg["mask"], max_weight_bps=cfg["cap_bps"],
                 is_genesis=not st["started"], genesis_capital=cap, tag=f"{name}_{e}")
-            send(k["key"], "settle(uint256,uint64,bytes32,uint64,bytes)", st["id"], e, "0x%064x" % nc, nav,
-                 "0x" + proof.hex(), what=f"{name} settle e{e}")
+            txh = send(k["key"], "settle(uint256,uint64,bytes32,uint64,bytes)", st["id"], e, "0x%064x" % nc, nav,
+                       "0x" + proof.hex(), what=f"{name} settle e{e}")
             st.update(book=prover.apply_orders(book, p["orders"], px), salt=new_salt, commit=nc, started=True, pending=None)
             save(name, st)
-            print(f"e{e} {name}: settled, NAV {nav / SCALE:,.2f} USDC")
+            print(f"e{e} {name}: proof {len(proof):,} B verified on chain, NAV {nav / SCALE:,.2f} USDC  tx {txh[:12]}…", flush=True)
 
 
 if __name__ == "__main__":
