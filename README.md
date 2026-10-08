@@ -131,16 +131,16 @@ Read everything a depositor can see, with no key:
 
 ### Track record so far
 
-34 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
+114 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
 
 | Strategy | Epochs proven | Proven NAV (USDC) | Return | Max drawdown | Last proof |
 |---|---|---|---|---|---|
-| momentum | 16 | 1,000,233.32 | +0.023% | 0.23% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0xa9c3345130e45f0b8ce7791d82fea5df83bfe5864b618d17e3c2b9b4c9731862) |
-| mean-reversion | 16 | 982,536.65 | -1.746% | 1.83% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x24bf91a14a1f27b26c8db10832c08f7bbd97057c3fdf3b282b1b0d786250b87e) |
+| momentum | 56 | 982,990.89 | -1.701% | 2.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x5772fe046161dfd042f6834c320c42071488386f2120495906d322852443027d) |
+| mean-reversion | 56 | 924,707.89 | -7.529% | 8.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x03eafa89154786aeaf77f1f315f50ff0eec4153354cb1a80aa83307e4f596e85) |
 
 The balances behind those numbers, and the orders that moved them, are not on chain.
 
-The returns are small on purpose: three-minute epochs, simple rules, a 40% cap per asset. What matters is that each figure is a proof output, and each one links to the transaction that verified it. The page in [`docs/index.html`](docs/index.html) draws the same record live from the chain.
+The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH fell during the latest run, so the mean-reversion strategy, which buys dips, shows a real loss. That is the point of a proven track record: losses are published exactly like gains, and each figure links to the transaction that verified it. The page in [`docs/index.html`](docs/index.html) draws the same record live from the chain.
 
 ## Attacks, mined on chain
 
