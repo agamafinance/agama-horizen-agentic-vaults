@@ -65,3 +65,18 @@
 {"what": "prices e12", "tx": "0x53e0129f109ff753461af27d88f993aeb86a21429ed9dd307fc6cdb5e1a7d832", "status": "0x1", "gas": 73239}
 {"what": "momentum settle e12", "tx": "0xc6b85fd44d7f1c684d6610cef38b140e5e62b2c57a1f133a164581bdb1382763", "status": "0x1", "gas": 2070507}
 {"what": "mean-reversion settle e12", "tx": "0x5c3f7e343c4f4e77ae6dfebe31acde5bebb37761e96362a5954077852e261f0d", "status": "0x1", "gas": 2070483}
+{"what": "momentum commit e1026", "tx": "0x45e26f374d5a3bc6d0943649217eec5d4045b1074f2e1fca9da3410c8e70a843", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e1026", "tx": "0xd9be039b10ba1843b11d9188f7fd06b8c5112a0cf692d1bad33d1807b6b575f7", "status": "0x1", "gas": 51328}
+{"what": "prices e1026", "tx": "0x48dbfd6291cfb34392001b9377dd34dffe08c048783b35c3ed86d81ca538cddd", "status": "0x1", "gas": 73251}
+{"what": "momentum settle e1026", "tx": "0x4a741d5b223c9ad1459b3d6c3109bd1cb73ff3041adde1bc34bb7acd18171c18", "status": "0x1", "gas": 2070751}
+{"what": "mean-reversion settle e1026", "tx": "0xd2a338c4323e5a5a2ad5d9caf7d7711fead2b89604ae0385d64f57303c5a49c1", "status": "0x1", "gas": 2070767}
+{"what": "momentum commit e1028", "tx": "0x230ba115ed29530648903cae9a7370eab15e4457f70915acf0ef630805c2404a", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e1028", "tx": "0x41c89ce18ae5dd37ec69966aaf3c800cb574e42d356a557ec6aeed829533dfb0", "status": "0x1", "gas": 51328}
+{"what": "prices e1028", "tx": "0xbd3d5841771af0f17173f0867873d42ecfe717b5729451201a3ee45c7a123002", "status": "0x1", "gas": 73239}
+{"what": "momentum settle e1028", "tx": "0xc964f522dcf6d885aa43dc13f6eab714fb2e2281e75f9ff981f6219b79fec67f", "status": "0x1", "gas": 2070447}
+{"what": "mean-reversion settle e1028", "tx": "0x7e1fd5595f9f81c8a584e3aa1c89b1c3bd25a94b85243ac8c72fc447c11ac91d", "status": "0x1", "gas": 2070779}
+{"what": "momentum commit e1036", "tx": "0x137738029be513dbc5b1244721ee65ae47647c743fa0bee0729e6a4376c6aebc", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e1036", "tx": "0x85ece62beb366e91100713721927668816133fefbcb60e73d0d7280c83c7e66e", "status": "0x1", "gas": 51328}
+{"what": "prices e1036", "tx": "0x1d92f5eaee0bbf446ca5820a19348ebff907614f49ce4bb5bbe1c0483f0dcdbd", "status": "0x1", "gas": 73251}
+{"what": "momentum settle e1036", "tx": "0xa9c3345130e45f0b8ce7791d82fea5df83bfe5864b618d17e3c2b9b4c9731862", "status": "0x1", "gas": 2070731}
+{"what": "mean-reversion settle e1036", "tx": "0x24bf91a14a1f27b26c8db10832c08f7bbd97057c3fdf3b282b1b0d786250b87e", "status": "0x1", "gas": 2070755}

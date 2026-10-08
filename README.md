@@ -131,12 +131,12 @@ Read everything a depositor can see, with no key:
 
 ### Track record so far
 
-32 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
+34 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
 
 | Strategy | Epochs proven | Proven NAV (USDC) | Return | Max drawdown | Last proof |
 |---|---|---|---|---|---|
-| momentum | 15 | 1,002,243.98 | +0.224% | 0.12% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0xc964f522dcf6d885aa43dc13f6eab714fb2e2281e75f9ff981f6219b79fec67f) |
-| mean-reversion | 15 | 988,969.99 | -1.103% | 1.19% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x7e1fd5595f9f81c8a584e3aa1c89b1c3bd25a94b85243ac8c72fc447c11ac91d) |
+| momentum | 16 | 1,000,233.32 | +0.023% | 0.23% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0xa9c3345130e45f0b8ce7791d82fea5df83bfe5864b618d17e3c2b9b4c9731862) |
+| mean-reversion | 16 | 982,536.65 | -1.746% | 1.83% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x24bf91a14a1f27b26c8db10832c08f7bbd97057c3fdf3b282b1b0d786250b87e) |
 
 The balances behind those numbers, and the orders that moved them, are not on chain.
 
