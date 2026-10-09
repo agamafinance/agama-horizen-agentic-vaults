@@ -71,8 +71,20 @@ def send(key, sig, *args, what=""):
     return tx["transactionHash"]
 
 
-def spot_prices():
-    """ETH, BTC, ZEN in USD from Binance, CoinGecko as a fallback."""
+def spot_prices(attempts=12):
+    """ETH, BTC, ZEN in USD from Binance, CoinGecko as a fallback. A network
+    blip retries instead of killing the run: the prices only have to be posted
+    after the close, so a late post is fine."""
+    for i in range(attempts):
+        try:
+            return _spot_prices()
+        except Exception as e:
+            print(f"price fetch failed ({e.__class__.__name__}), retrying in {10 * (i + 1)} s", flush=True)
+            time.sleep(10 * (i + 1))
+    return _spot_prices()
+
+
+def _spot_prices():
     try:
         url = 'https://api.binance.com/api/v3/ticker/price?symbols=["ETHUSDT","BTCUSDT","ZENUSDT"]'
         data = {d["symbol"]: float(d["price"]) for d in json.load(urllib.request.urlopen(url.replace('"', "%22"), timeout=10))}
