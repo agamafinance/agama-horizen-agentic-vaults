@@ -49,11 +49,17 @@ def oracle_key():
     raise SystemExit("set ORACLE_PK, or put ORACLE_PK=... in .env")
 
 
-def sh(*args):
-    r = subprocess.run(args, capture_output=True, text=True)
-    if r.returncode != 0:
-        raise RuntimeError(r.stderr.strip()[-400:])
-    return r.stdout.strip()
+def sh(*args, attempts=6):
+    """Run a command. A failure to reach the RPC is retried: cast never got a
+    request through, so nothing was sent. Any other failure stops the run."""
+    for i in range(attempts):
+        r = subprocess.run(args, capture_output=True, text=True)
+        if r.returncode == 0:
+            return r.stdout.strip()
+        if "error sending request" not in r.stderr or i == attempts - 1:
+            raise RuntimeError(r.stderr.strip()[-400:])
+        print(f"RPC unreachable, retrying in {10 * (i + 1)} s", flush=True)
+        time.sleep(10 * (i + 1))
 
 
 def call(sig, *args):
