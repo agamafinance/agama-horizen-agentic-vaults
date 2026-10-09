@@ -131,16 +131,16 @@ Read everything a depositor can see, with no key:
 
 ### Track record so far
 
-114 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
+194 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
 
 | Strategy | Epochs proven | Proven NAV (USDC) | Return | Max drawdown | Last proof |
 |---|---|---|---|---|---|
-| momentum | 56 | 982,990.89 | -1.701% | 2.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x5772fe046161dfd042f6834c320c42071488386f2120495906d322852443027d) |
-| mean-reversion | 56 | 924,707.89 | -7.529% | 8.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x03eafa89154786aeaf77f1f315f50ff0eec4153354cb1a80aa83307e4f596e85) |
+| momentum | 96 | 989,791.84 | -1.021% | 2.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x7372c5a750d757e636ada847e2f0801d0865685eaa447d45ebf480054232ed46) |
+| mean-reversion | 96 | 954,528.29 | -4.547% | 8.04% | [tx](https://horizen-testnet.explorer.caldera.xyz/tx/0x90d443f67538c0c0bcd6fc7815cbff6ffdeed2671cdf82247baaa2be6e3c00b0) |
 
 The balances behind those numbers, and the orders that moved them, are not on chain.
 
-The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH fell during the latest run, so the mean-reversion strategy, which buys dips, shows a real loss. That is the point of a proven track record: losses are published exactly like gains, and each figure links to the transaction that verified it. The page in [`docs/index.html`](docs/index.html) draws the same record live from the chain.
+The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH dropped and then recovered across the runs, and the record shows both legs, losses published exactly like gains. That is the point of a proven track record: nothing is picked after the fact, and each figure links to the transaction that verified it. The page in [`docs/index.html`](docs/index.html) draws the same record live from the chain.
 
 ## Attacks, mined on chain
 
