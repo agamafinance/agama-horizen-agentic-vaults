@@ -131,7 +131,7 @@ Read everything a depositor can see, with no key:
 
 ### Track record so far
 
-274 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy.
+Snapshot of 9 October 2026: 274 settlements verified on chain. Sandbox capital 1,000,000 USDC per strategy. The strategies keep running, so the **[live page](https://agamafinance.github.io/agama-horizen-agentic-vaults/)** is ahead of this table.
 
 | Strategy | Epochs proven | Proven NAV (USDC) | Return | Max drawdown | Last proof |
 |---|---|---|---|---|---|
@@ -140,7 +140,7 @@ Read everything a depositor can see, with no key:
 
 The balances behind those numbers, and the orders that moved them, are not on chain.
 
-The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH dropped and then recovered across the runs, and the record shows both legs, losses published exactly like gains. That is the point of a proven track record: nothing is picked after the fact, and each figure links to the transaction that verified it. The page in [`docs/index.html`](docs/index.html) draws the same record live from the chain.
+The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH dropped and then recovered across the runs, and the record shows both legs, losses published exactly like gains. That is the point of a proven track record: nothing is picked after the fact, and each figure links to the transaction that verified it. The [live page](https://agamafinance.github.io/agama-horizen-agentic-vaults/) ([`docs/index.html`](docs/index.html)) draws the same record straight from the chain.
 
 ## Attacks, mined on chain
 
