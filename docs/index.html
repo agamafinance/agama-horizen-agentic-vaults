@@ -71,8 +71,8 @@ function spark(points, cap) {
   const ys = points.map(p => p.nav), lo = Math.min(cap, ...ys), hi = Math.max(cap, ...ys), span = (hi - lo) || 1;
   const x = i => 4 + i * (292 / (points.length - 1)), y = v => 82 - (v - lo) / span * 74;
   const d = points.map((p, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.nav).toFixed(1)).join(" ");
-  return `<svg viewBox="0 0 300 90"><line x1="0" x2="300" y1="${y(cap)}" y2="${y(cap)}" stroke="#6e8c7d" stroke-dasharray="3 3"/>
-    <path d="${d}" fill="none" stroke="#9fd9b8" stroke-width="2"/></svg>`;
+  return `<svg viewBox="0 0 300 90" preserveAspectRatio="none"><line x1="0" x2="300" y1="${y(cap)}" y2="${y(cap)}" stroke="#6e8c7d" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+    <path d="${d}" fill="none" stroke="#9fd9b8" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
 }
 
 (async () => {
