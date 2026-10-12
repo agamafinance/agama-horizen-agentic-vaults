@@ -158,6 +158,11 @@ def epochs(n):
         # 2. oracle posts closing prices after the close
         time.sleep(max(0, closes - time.time()) + 3)
         px = spot_prices()
+        if time.time() - closes > 120:
+            # the machine slept or the network was down: a price fetched now is
+            # not this epoch's close, so leave the epoch unsettled rather than post it
+            print(f"e{e} skipped: prices ready {time.time() - closes:.0f} s after the close", flush=True)
+            continue
         txh = send(oracle, "postPrices(uint64,uint64[4])", e, "[" + ",".join(map(str, px)) + "]", what=f"prices e{e}")
         print(f"e{e} oracle: ETH {px[1] / SCALE:,.2f} · BTC {px[2] / SCALE:,.2f} · ZEN {px[3] / SCALE:,.3f}  tx {txh[:12]}…", flush=True)
         history.append(px)
