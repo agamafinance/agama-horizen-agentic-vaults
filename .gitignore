@@ -14,3 +14,7 @@ agents/state/
 execution/zendex/node_modules/
 execution/zendex/circuits/
 execution/zendex/.state/
+
+# live process output on the operator machine; the run itself is in the jsonl logs
+deployment/run-live.log
+deployment/zendex-live.log

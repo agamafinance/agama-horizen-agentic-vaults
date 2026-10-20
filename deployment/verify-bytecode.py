@@ -19,6 +19,8 @@ EXPECTED = {
     "AgentVaultHub": {"verifier": int(DEP["verifier"], 16), "oracle": int(DEP["oracle"], 16),
                       "genesisTime": DEP["genesis"], "epochLength": DEP["epoch_length"],
                       "sandboxCapital": DEP["capital"]},
+    "NetVerifier": {"n": 32768, "logN": 15, "numPublicInputs": 41},
+    "NettingAttestor": {"hub": int(DEP["hub"], 16), "verifier": int(DEP["net_verifier"], 16)},
 }
 
 
@@ -45,7 +47,7 @@ def check(name, file, addr):
     ok_code = bytes(local) == chain
     print(f"{name} at {addr}: {len(chain)} bytes, code identical: {ok_code}, immutables as expected: {ok_values}")
     for k, v in EXPECTED[name].items():
-        shown = "0x%040x" % v if k in ("verifier", "oracle") else v
+        shown = "0x%040x" % v if k in ("verifier", "oracle", "hub") else v
         print(f"    {k} = {shown}{'' if v in seen else '  (NOT FOUND ON CHAIN)'}")
     return ok_code and ok_values
 
@@ -53,4 +55,6 @@ def check(name, file, addr):
 if __name__ == "__main__":
     a = check("EpochVerifier", "EpochVerifier.sol", DEP["verifier"])
     b = check("AgentVaultHub", "AgentVaultHub.sol", DEP["hub"])
-    raise SystemExit(0 if a and b else 1)
+    c = check("NetVerifier", "NetVerifier.sol", DEP["net_verifier"])
+    d = check("NettingAttestor", "NettingAttestor.sol", DEP["attestor"])
+    raise SystemExit(0 if a and b and c and d else 1)

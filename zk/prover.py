@@ -75,6 +75,38 @@ def order_commit(strategy_id: int, epoch: int, orders, salt: int) -> int:
     return int(re.search(r"Circuit output: (0x[0-9a-f]+)", out).group(1), 16)
 
 
+S = 4  # strategy slots in a netting batch
+
+
+def net(*, epoch, books, tag):
+    """Prove the hub's net flow for one epoch. `books` maps strategy id to
+    (orders, orders_salt, orders_commit) for every strategy that committed.
+    Returns (ids, commits, net_buy, net_sell, crossed, proof); the three flows
+    are per asset, index 0 (USDC) always zero."""
+    ids = sorted(books)
+    if len(ids) > S:
+        raise ValueError(f"at most {S} strategies per batch")
+    slots = [(i, *books[i]) for i in ids] + [None] * (S - len(ids))
+    empty = [{"asset": 0, "side": 0, "qty": 0}] * K
+    d = ZK / "net_epoch"
+    (d / "Prover.toml").write_text(_toml({
+        "orders": [[{"asset": x["asset"], "side": x["side"], "qty": x["qty"]} for x in (_pad(sl[1]) if sl else empty)] for sl in slots],
+        "salts": [sl[2] if sl else 0 for sl in slots],
+        "epoch": epoch,
+        "ids": [sl[0] if sl else 0 for sl in slots],
+        "commits": [sl[3] if sl else 0 for sl in slots],
+        "active": [sl is not None for sl in slots],
+    }))
+    out = _run(["nargo", "execute", f"n_{tag}"], d)
+    arrays = re.search(r"Circuit output: \((\[.*?\]), (\[.*?\]), (\[.*?\])\)", out)
+    net_buy, net_sell, crossed = ([int(v, 0) for v in re.findall(r"0x[0-9a-f]+|\d+", g)] for g in arrays.groups())
+    pdir = d / "target" / f"proof_{tag}"
+    _run(["bb", "prove", "--scheme", "ultra_honk", "--oracle_hash", "keccak",
+          "-b", "target/net_epoch.json", "-w", f"target/n_{tag}.gz", "-o", str(pdir)], d)
+    commits = [books[i][2] for i in ids]
+    return ids, commits, net_buy, net_sell, crossed, (pdir / "proof").read_bytes()
+
+
 def settle(*, strategy_id, epoch, old_bal, old_salt, orders, orders_salt, new_salt,
            old_commit, orders_commit, prices, allowed_mask, max_weight_bps,
            is_genesis, genesis_capital, tag):

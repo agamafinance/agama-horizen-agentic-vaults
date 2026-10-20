@@ -68,8 +68,8 @@ def call(sig, *args):
     return sh("cast", "call", HUB, sig, *map(str, args), "--rpc-url", RPC)
 
 
-def send(key, sig, *args, what=""):
-    out = sh("cast", "send", HUB, sig, *map(str, args), "--private-key", key, "--rpc-url", RPC, "--json")
+def send(key, sig, *args, what="", to=HUB):
+    out = sh("cast", "send", to, sig, *map(str, args), "--private-key", key, "--rpc-url", RPC, "--json")
     tx = json.loads(out)
     entry = {"what": what, "tx": tx["transactionHash"], "status": tx["status"], "gas": int(tx["gasUsed"], 16)}
     with LOG.open("a") as f:
@@ -145,6 +145,28 @@ def setup():
         print(f"{name}: strategy {sid}, key {k['address']}")
 
 
+def attest_net(key, e, to_market, crossed):
+    """Prove the epoch's net flow from every strategy's committed orders and
+    record it with the NettingAttestor. The proof's totals must match the
+    operator's own netting, or nothing is sent."""
+    books = {}
+    for name in STRATEGIES:
+        st = load(name)
+        p = st["pending"]
+        books[st["id"]] = (p["orders"], p["salt"], p["commit"])
+    _, _, net_buy, net_sell, crossed_p, proof = prover.net(epoch=e, books=books, tag=f"net_{e}")
+    mine = ([0] * 4, [0] * 4, [0] * 4)
+    for o in to_market:
+        mine[o["side"]][o["asset"]] = o["qty"]
+    for c in crossed:
+        mine[2][c["asset"]] = c["qty"]
+    if (net_buy, net_sell, crossed_p) != mine:
+        raise RuntimeError(f"netting mismatch: proof {net_buy, net_sell, crossed_p} vs operator {mine}")
+    arr = lambda v: "[" + ",".join(map(str, v)) + "]"
+    return send(key, "attest(uint64,uint64[4],uint64[4],uint64[4],bytes)", e, arr(net_buy), arr(net_sell), arr(crossed_p),
+                "0x" + proof.hex(), what=f"netting proof e{e}", to=DEP["attestor"])
+
+
 def epochs(n):
     prover.check_toolchain()
     check_books()
@@ -188,11 +210,18 @@ def epochs(n):
         history.append(px)
         hist_file.write_text(json.dumps(history))
 
-        # 2b. net the batch: only the residual of the hub as a whole would go to market
+        # 2b. net the batch: only the residual of the hub as a whole goes to market,
+        # proven from the committed orders and recorded by the attestor
         to_market, crossed = netting.net({n: load(n)["pending"]["orders"] for n in STRATEGIES}, px)
+        line = {"epoch": e, "prices": px, "crossed": crossed, "to_market": to_market}
+        try:
+            line["attest_tx"] = attest_net(oracle, e, to_market, crossed)
+        except Exception as x:  # the settlements below must not wait on the netting proof
+            print(f"e{e} netting proof failed: {str(x)[-200:]}", flush=True)
         with NET_LOG.open("a") as f:
-            f.write(json.dumps({"epoch": e, "prices": px, "crossed": crossed, "to_market": to_market}) + "\n")
-        print(f"e{e} {netting.describe(to_market, crossed)}", flush=True)
+            f.write(json.dumps(line) + "\n")
+        proven = f"proven on chain, tx {line['attest_tx'][:12]}…" if "attest_tx" in line else "not proven"
+        print(f"e{e} {netting.describe(to_market, crossed)}, {proven}", flush=True)
 
         # 3. strategists prove and settle
         for name, cfg in STRATEGIES.items():

@@ -8,5 +8,7 @@
  "oracle": "0x43762739CEA3B2192A08b7a4C09102ed2913648A",
  "genesis": 1790779436,
  "epoch_length": 180,
- "capital": 1000000000000
+ "capital": 1000000000000,
+ "net_verifier": "0xb907c33270e07f45264b9B80e3908846c8B842F3",
+ "attestor": "0x44B556a840A684b3533714c96F60e6912F2e3A0e"
 }

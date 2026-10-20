@@ -25,3 +25,21 @@ print(f'  [{$i}] {name.strip(chr(34))}: ' + (f'{n} epochs proven, NAV {nav/1e6:,
 print(f'      mandate: {\"/\".join(assets)}, max {int(cap.split()[0])/100:.0f}% per asset | book commitment {book[:18]}... | balances: private')
 "
 done
+
+ATT=$(python3 -c "import json;print(json.load(open('testnet.json'))['attestor'])")
+a() { cast call "$ATT" "$@" --rpc-url "$RPC" | awk '{print $1}'; }
+LAST=$(a 'lastEpoch()(uint64)')
+echo
+echo "NettingAttestor $ATT"
+echo "  epochs with a proven net flow: $(a 'epochsProven()(uint256)'), last one $LAST"
+cast call "$ATT" 'flow(uint64)((uint64[4],uint64[4],uint64[4],uint8,bool))' "$LAST" --rpc-url "$RPC" | python3 -c "
+import sys, re
+t = re.sub(r'\[[0-9.]+e[0-9]+\]', '', sys.stdin.read())  # drop cast's scientific annotations
+nums = [int(x) for x in re.findall(r'\d+', t.split('[', 1)[1])]
+buy, sell, crossed, n = nums[0:4], nums[4:8], nums[8:12], nums[12]
+names = ['USDC', 'ETH', 'BTC', 'ZEN']
+side = lambda a: f'buy {buy[a]/1e6:,.6f}' if buy[a] else (f'sell {sell[a]/1e6:,.6f}' if sell[a] else 'nothing')
+print(f'  epoch $LAST, {n} strategies netted, orders: private')
+for a in (1, 2, 3):
+    print(f'      {names[a]}: to market {side(a)}, crossed inside the batch {crossed[a]/1e6:,.6f}')
+"
