@@ -7,7 +7,7 @@ Execution module for the hub. After each netting window, it sends the hub's net 
 `agents/run.py` writes one line per epoch to `deployment/netting-log.jsonl`. `execute` then:
 
 1. Settles any relay still pending from a previous run.
-2. Reads the epochs after `lastExecutedEpoch`. The first run takes only the last 20.
+2. Reads the epochs after `lastExecutedEpoch` whose net flow the NettingAttestor proved on chain (`attest_tx` in the log). An epoch without a proof is never executed. The first run takes only the last 20.
 3. Nets the hub's market flow per asset over that window. Buys count positive and sells negative.
 4. Sizes each leg by its USDC notional divided by `SCALE_DOWN` (default 10000). Testnet pools are not priced like exchanges, so a sell spends the amount of token the ZENDEX pools value at that notional, not a scaled quantity.
 5. Executes each net leg with shielded notes, routing only through WZEN pairs, as the ZENDEX app does:

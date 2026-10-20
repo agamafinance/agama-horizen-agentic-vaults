@@ -497,7 +497,8 @@ export async function execute({ dryRun = false } = {}) {
   if (!dryRun && !(await reconcileAll(90_000))) { console.log('pending relays are not settled yet, try again later'); return; }
   db = loadDb();
   if (!db.exec.window) {
-    const entries = parseLog(fs.readFileSync(NETTING_LOG, 'utf8'));
+    // only net flows the NettingAttestor verified on chain go to market
+    const entries = parseLog(fs.readFileSync(NETTING_LOG, 'utf8')).filter((e) => e.attest_tx);
     const sel = selectWindow(entries, db.exec.lastExecutedEpoch, FIRST_RUN_EPOCHS);
     const agg = aggregate(sel);
     if (!agg) { console.log(`no new epochs after ${db.exec.lastExecutedEpoch}`); return; }

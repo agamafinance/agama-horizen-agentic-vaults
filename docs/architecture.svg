@@ -41,7 +41,7 @@
 
   <!-- execution -->
   <rect x="660" y="850" width="460" height="145" rx="10" fill="#fff" stroke="#111827" stroke-width="2.5"/>
-  <text font-size="22" fill="#111827"><tspan x="890" y="900" text-anchor="middle" font-weight="700">Netting engine</tspan><tspan x="890" y="934" text-anchor="middle">nets every epoch · executes hourly</tspan><tspan x="890" y="966" text-anchor="middle">v1 operator · v2 Vela enclave</tspan></text>
+  <text font-size="22" fill="#111827"><tspan x="890" y="900" text-anchor="middle" font-weight="700">Netting engine</tspan><tspan x="890" y="934" text-anchor="middle">nets every epoch · executes hourly</tspan><tspan x="890" y="966" text-anchor="middle">proven on chain · v2 Vela enclave</tspan></text>
   <rect x="1300" y="850" width="250" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
   <text font-size="22" fill="#15803d"><tspan x="1425" y="912" text-anchor="middle" font-weight="700">ZENDEX</tspan><tspan x="1425" y="944" text-anchor="middle">private swaps</tspan></text>
   <rect x="1600" y="850" width="220" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" stroke-dasharray="7 5"/>

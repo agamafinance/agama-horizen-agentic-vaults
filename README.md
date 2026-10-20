@@ -55,7 +55,7 @@ flowchart TB
 
     subgraph market["EXECUTION · netting and ZENDEX live on testnet"]
         direction LR
-        NET["Netting engine<br/>nets every epoch · executes hourly<br/>v1 operator · v2 Vela enclave"]
+        NET["Netting engine<br/>nets every epoch · executes hourly<br/>proven on chain · v2 Vela enclave"]
         ZENDEX["ZENDEX<br/>private swaps on Horizen"]
         BASE["Base liquidity<br/>via the cluster's private bridge"]
     end
