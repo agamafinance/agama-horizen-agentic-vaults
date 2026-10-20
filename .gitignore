@@ -9,3 +9,8 @@ __pycache__/
 .env.*
 agents/.keys/
 agents/state/
+
+# ZENDEX execution module: deps, circuits fetched from the public app, local keys and notes
+execution/zendex/node_modules/
+execution/zendex/circuits/
+execution/zendex/.state/

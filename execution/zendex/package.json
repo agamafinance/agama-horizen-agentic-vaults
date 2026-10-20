@@ -1,0 +1,19 @@
+{
+  "name": "agama-zendex-execution",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Executes the hub's net flow per netting window on ZENDEX (Horizen testnet) through shielded notes",
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "fetch-circuits": "node fetch-circuits.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@aztec/bb.js": "0.87.0",
+    "@noir-lang/noir_js": "1.0.0-beta.7",
+    "ethers": "6.17.0",
+    "poseidon-lite": "0.3.0"
+  }
+}
