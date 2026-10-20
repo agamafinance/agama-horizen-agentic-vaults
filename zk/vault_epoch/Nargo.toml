@@ -1,0 +1,6 @@
+[package]
+name = "vault_epoch"
+type = "bin"
+authors = [""]
+
+[dependencies]

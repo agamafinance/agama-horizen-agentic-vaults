@@ -29,26 +29,46 @@
   table { width:100%; border-collapse:collapse; font-size:13px; background:var(--card); border:1.5px solid #fff; border-radius:14px; overflow:hidden; }
   th, td { text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); }
   th { color:var(--muted); font-weight:600; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border:1.5px solid #fff; border-radius:14px; padding:12px 16px; margin-bottom:18px; font-size:14px; }
+  .bar .grow { flex:1; color:var(--muted); }
+  button { background:#fff; color:#254839; border:0; border-radius:10px; padding:8px 14px; font-weight:700; cursor:pointer; font-size:13px; }
+  button.ghost { background:transparent; color:#fff; border:1.5px solid #fff; }
+  button:disabled { opacity:.45; cursor:default; }
+  input.amt { width:110px; border-radius:10px; border:1.5px solid var(--line); background:var(--inner); color:#fff; padding:7px 10px; font-size:13px; }
+  .stage { display:inline-block; font-size:11px; font-weight:700; padding:3px 8px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+  .stage.sandbox { background:#37574a; color:var(--muted); } .stage.open { background:var(--mint); color:#254839; } .stage.frozen { background:#f3a7a7; color:#254839; }
+  .actions { display:flex; gap:8px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+  .mine { font-size:12px; color:var(--mint); margin-top:8px; }
+  .note { font-size:12px; color:var(--muted); margin-top:6px; }
   footer { margin-top:40px; color:var(--muted); font-size:13px; line-height:1.6; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Private books, public track records</h1>
-  <p class="sub">Each strategy below keeps its balances and orders off chain. Horizen only holds a commitment to its book,
-  and every NAV shown was produced by a zero-knowledge proof the contract verified. Read live from Horizen testnet,
-  no server in between.</p>
+  <h1>Private strategy vaults on Horizen</h1>
+  <p class="sub">Deposit into a strategy's vault. The strategy, here two rules and an AI agent, trades it without revealing
+  its holdings, its orders or its logic. Every three minutes a zero-knowledge proof, verified on Horizen, moves its private
+  book, prices your shares and pays redemptions. Your deposit and your exit price are proven; nothing else is revealed.
+  Testnet: deposits are ZENDEX's faucet tUSDC.</p>
+  <div class="bar"><span class="grow" id="wallet">Connect a wallet to deposit. Horizen testnet is added for you.</span>
+    <button id="connect">Connect wallet</button><button class="ghost" id="faucet" disabled>Get 1,000 tUSDC</button></div>
+  <div class="meta" id="vmeta">Loading the vaults from Horizen testnet…</div>
+  <div class="grid" id="vgrid"></div>
+  <div id="claims"></div>
+
+  <h3>Track record since 30 September, first hub</h3>
+  <p class="sub" style="margin-bottom:14px">The first hub runs the same strategies on virtual capital, with no deposits, since 30 September.</p>
   <div class="meta" id="meta">Loading from Horizen testnet…</div>
   <div class="grid" id="grid"></div>
 
   <h3>Netted, proven, then sent to ZENDEX</h3>
-  <p class="sub" style="margin-bottom:14px">Every epoch the strategies' opposite orders are crossed inside the batch. A second proof shows
+  <p class="sub" style="margin-bottom:14px">Every epoch the vaults' opposite orders are crossed inside the batch. A second proof shows
   the hub's net flow is exactly the sum of the orders each strategy committed before the close, with none left out, and the
   NettingAttestor records it. Every hour that net flow goes to ZENDEX, the shielded AMM on Horizen, as private swaps.</p>
   <div class="meta" id="netmeta">Loading netting proofs…</div>
   <table id="nets"><thead><tr><th>Epoch</th><th>Strategies</th><th>Crossed inside the batch</th><th>Sent to market</th><th>Proof</th></tr></thead><tbody></tbody></table>
   <div class="meta" id="exmeta" style="margin-top:18px">Loading ZENDEX executions…</div>
-  <table id="execs"><thead><tr><th>Window</th><th>Hub net flow</th><th>On ZENDEX testnet (1/10,000 scale)</th><th>Transactions</th></tr></thead><tbody></tbody></table>
+  <table id="execs"><thead><tr><th>Window</th><th>Hub net flow</th><th>On ZENDEX testnet (1/100 scale)</th><th>Transactions</th></tr></thead><tbody></tbody></table>
 
   <h3>Refused on chain</h3>
   <p class="sub" style="margin-bottom:14px">Mined transactions from a separate test strategy. Each one is set up so every check before the targeted one passes.</p>
@@ -125,8 +145,8 @@ function spark(points, cap) {
 })().catch(e => { document.getElementById("meta").textContent = "Could not reach Horizen testnet: " + e.message; });
 
 // ---- netting proofs, read live from the NettingAttestor
-const ATTESTOR = "0x44B556a840A684b3533714c96F60e6912F2e3A0e";
-const ATT_FROM = 30936847;
+const ATTESTOR = "0xFa6c3f86922847dcf4303F1298a9BB5E6D9DD362"; // bound to the vault hub
+const ATT_FROM = 30940791;
 const NAMES = ["USDC", "ETH", "BTC", "ZEN"];
 const q = (v, a) => (Number(v) / 1e6).toLocaleString("en-US", {maximumFractionDigits: a === 2 ? 4 : 2});
 (async () => {
@@ -153,9 +173,9 @@ const q = (v, a) => (Number(v) / 1e6).toLocaleString("en-US", {maximumFractionDi
 
 // ---- ZENDEX executions, from the run log committed in the repository
 (async () => {
-  const r = await fetch("https://raw.githubusercontent.com/agamafinance/agama-horizen-agentic-vaults/main/deployment/execution-log.jsonl", {cache: "no-store"});
+  const r = await fetch("https://raw.githubusercontent.com/agamafinance/agama-horizen-agentic-vaults/main/deployment/vaults-execution-log.jsonl", {cache: "no-store"});
   const lines = (await r.text()).trim().split("\n").map(x => JSON.parse(x)).filter(x => x.txs);
-  document.getElementById("exmeta").innerHTML = `${lines.length} legs executed as private swaps on ZENDEX testnet, from <a target="_blank" href="https://github.com/agamafinance/agama-horizen-agentic-vaults/blob/main/deployment/execution-log.jsonl">the execution log</a> · latest below`;
+  document.getElementById("exmeta").innerHTML = `${lines.length} legs executed as private swaps on ZENDEX testnet, from <a target="_blank" href="https://github.com/agamafinance/agama-horizen-agentic-vaults/blob/main/deployment/vaults-execution-log.jsonl">the execution log</a> · latest below`;
   const tx = h => `<a target="_blank" href="${EXPLORER}/tx/${h}">${h.slice(0, 8)}↗</a>`;
   document.querySelector("#execs tbody").innerHTML = lines.slice(-6).reverse().map(x => {
     const hub = `${x.side} ${(Number(x.hub_qty) / 1e6).toLocaleString("en-US", {maximumFractionDigits: 4})} ${x.asset}`;
@@ -165,6 +185,150 @@ const q = (v, a) => (Number(v) / 1e6).toLocaleString("en-US", {maximumFractionDi
     return `<tr><td>${x.window[0]}..${x.window[1]}</td><td>${hub}</td><td>${sand}</td><td>${txs}</td></tr>`;
   }).join("");
 })().catch(e => { document.getElementById("exmeta").textContent = "Could not read the execution log: " + e.message; });
+
+// ================================================================ v2 vaults
+const VHUB = "0x4E9ec84f2f2B4a2DBa8175D37da433d556d7C183";
+const VFROM = 30940791;
+const TUSDC = "0x276BF638000b0C80Ebd3d33104846E9F909C1f16";
+const CHAIN = {chainId: "0x28751c", chainName: "Horizen Testnet", rpcUrls: [RPC],
+  nativeCurrency: {name: "Ether", symbol: "ETH", decimals: 18}, blockExplorerUrls: [EXPLORER]};
+const VABI = [
+  "function strategyCount() view returns (uint256)",
+  "function strategy(uint256) view returns (tuple(address owner,uint8 allowedMask,uint64 maxWeightBps,uint64 maxDrawdownBps,bytes32 book,uint64 lastEpoch,bool started,bool frozen,uint64 nav,uint64 totalShares,uint64 sharePrice,uint64 highWaterMark,uint64 peakSharePrice,uint64 drawdownBps,uint32 epochsSettled,uint256 bond,string name))",
+  "function capacity(uint256) view returns (uint64)",
+  "function pendingDeposits(uint256) view returns (uint64)",
+  "function currentEpoch() view returns (uint64)",
+  "function SANDBOX_EPOCHS() view returns (uint64)",
+  "function sharesOf(uint256,address) view returns (uint64)",
+  "function depositOf(uint256,uint64,address) view returns (uint64)",
+  "function redeemOf(uint256,uint64,address) view returns (uint64)",
+  "function result(uint256,uint64) view returns (tuple(uint64 nav,uint64 sharesBefore,uint64 minted,uint64 outflow,bool settled))",
+  "function deposit(uint256,uint64)",
+  "function requestRedeem(uint256,uint64)",
+  "function claim(uint256,uint64)",
+  "function reclaim(uint256,uint64)",
+  "event Deposited(uint256 indexed id, uint64 indexed epoch, address indexed user, uint64 amount)",
+  "event RedeemRequested(uint256 indexed id, uint64 indexed epoch, address indexed user, uint64 shares)",
+  "event EpochSettled(uint256 indexed id, uint64 indexed epoch, bytes32 book, uint64 nav, uint64 sharePrice, uint64 totalShares, uint64 inflow, uint64 outflow, uint64 feeShares)",
+];
+const ERC = ["function balanceOf(address) view returns (uint256)", "function allowance(address,address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)", "function mint(address,uint256)"];
+const ro = new ethers.JsonRpcProvider(RPC);
+const vhub = new ethers.Contract(VHUB, VABI, ro);
+let signer = null, me = null;
+const u6 = v => (Number(v) / 1e6).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const ASSET = ["ETH", "BTC", "ZEN"];
+
+async function logsOf(filter) {
+  const head = await ro.getBlockNumber(), out = [];
+  for (let a = VFROM; a <= head; a += 90000) out.push(...await vhub.queryFilter(filter, a, Math.min(a + 89999, head)));
+  return out;
+}
+
+async function loadVaults() {
+  const [n, epoch, sandbox] = await Promise.all([vhub.strategyCount(), vhub.currentEpoch(), vhub.SANDBOX_EPOCHS()]);
+  const settled = await logsOf(vhub.filters.EpochSettled());
+  const vs = [];
+  for (let i = 0; i < Number(n); i++) {
+    const [s, cap, pend] = await Promise.all([vhub.strategy(i), vhub.capacity(i), vhub.pendingDeposits(i)]);
+    const pts = settled.filter(l => Number(l.args.id) === i).map(l => ({nav: Number(l.args.sharePrice) / 1e6, tx: l.transactionHash}));
+    vs.push({i, s, cap, pend, pts, ret: (Number(s.sharePrice) / 1e6 - 1) * 100});
+  }
+  vs.sort((a, b) => b.ret - a.ret); // public ranking: proven return
+  document.getElementById("vmeta").innerHTML =
+    `VaultHub <a target="_blank" href="${EXPLORER}/address/${VHUB}">${VHUB.slice(0,10)}…</a> · epoch ${epoch} · ${settled.length} vault epochs proven on chain · ranked by proven return`;
+  const g = document.getElementById("vgrid");
+  g.innerHTML = "";
+  for (const v of vs) {
+    const s = v.s, open = Number(s.epochsSettled) >= Number(sandbox);
+    const stage = s.frozen ? '<span class="stage frozen">frozen</span>'
+      : open ? '<span class="stage open">open</span>' : `<span class="stage sandbox">sandbox ${s.epochsSettled}/${sandbox}</span>`;
+    const assets = ASSET.filter((_, k) => Number(s.allowedMask) & (2 << k)).join(" · ");
+    const last = v.pts[v.pts.length - 1];
+    const myShares = me ? await vhub.sharesOf(v.i, me) : 0n;
+    g.insertAdjacentHTML("beforeend", `<div class="card">
+      <h2>${s.name}${stage}</h2>
+      <div class="mandate">Mandate: ${assets}, at most ${Number(s.maxWeightBps)/100}% each, frozen beyond ${Number(s.maxDrawdownBps)/100}% drawdown · bond ${ethers.formatEther(s.bond)} ZEN</div>
+      <div class="kpis">
+        <div class="kpi"><b>${(Number(s.sharePrice)/1e6).toFixed(4)}</b><span>share price, tUSDC</span></div>
+        <div class="kpi"><b class="${v.ret >= 0 ? "pos" : "neg"}">${v.ret >= 0 ? "+" : ""}${v.ret.toFixed(3)}%</b><span>proven return</span></div>
+        <div class="kpi"><b>${(Number(s.drawdownBps)/100).toFixed(2)}%</b><span>max drawdown</span></div>
+      </div>
+      ${spark(v.pts, 1)}
+      <div class="private">${u6(s.nav)} tUSDC managed, capacity ${u6(v.cap)} from its bond · ${s.epochsSettled} epochs proven · holdings and orders: private
+        ${last ? `· <a target="_blank" href="${EXPLORER}/tx/${last.tx}">last proof ↗</a>` : ""}</div>
+      ${me ? `<div class="actions"><input class="amt" id="amt${v.i}" placeholder="tUSDC" inputmode="decimal">
+        <button data-dep="${v.i}" ${open && !s.frozen ? "" : "disabled"}>Deposit</button>
+        <button class="ghost" data-red="${v.i}" ${myShares > 0n && !s.frozen ? "" : "disabled"}>Redeem all</button></div>
+        <div class="mine">${myShares > 0n ? `You hold ${u6(myShares)} shares, worth ${u6(myShares * s.sharePrice / 1000000n)} tUSDC at the last proven price` : ""}</div>
+        ${open ? "" : `<div class="note">Opens to outside deposits after ${sandbox} proven epochs, about an hour.</div>`}` : ""}
+    </div>`);
+  }
+  document.querySelectorAll("[data-dep]").forEach(b => b.onclick = () => act(() => depositTo(Number(b.dataset.dep))));
+  document.querySelectorAll("[data-red]").forEach(b => b.onclick = () => act(() => redeemAll(Number(b.dataset.red))));
+  if (me) await loadClaims();
+}
+
+async function loadClaims() {
+  const evs = [...await logsOf(vhub.filters.Deposited(null, null, me)), ...await logsOf(vhub.filters.RedeemRequested(null, null, me))];
+  const seen = new Set(), rows = [];
+  for (const l of evs) {
+    const id = Number(l.args.id), e = Number(l.args.epoch), k = id + ":" + e;
+    if (seen.has(k)) continue; seen.add(k);
+    const [d, q, r] = await Promise.all([vhub.depositOf(id, e, me), vhub.redeemOf(id, e, me), vhub.result(id, e)]);
+    if (d === 0n && q === 0n) continue;
+    const what = [d > 0n ? `deposit of ${u6(d)} tUSDC` : "", q > 0n ? `redemption of ${u6(q)} shares` : ""].filter(Boolean).join(" and ");
+    rows.push(`<div class="atk"><b>Vault ${id}, epoch ${e}.</b> <span>Your ${what} ${r.settled ? "is settled at the proven NAV." : "waits for the epoch's proof."}</span>
+      ${r.settled ? `<button data-claim="${id}:${e}">Claim</button>` : ""}</div>`);
+  }
+  document.getElementById("claims").innerHTML = rows.length ? `<h3>Your pending claims</h3>${rows.join("")}` : "";
+  document.querySelectorAll("[data-claim]").forEach(b => b.onclick = () => act(() => {
+    const [id, e] = b.dataset.claim.split(":").map(Number);
+    return vhub.connect(signer).claim(id, e);
+  }));
+}
+
+async function act(fn) {
+  try {
+    document.getElementById("wallet").textContent = "Confirm in your wallet…";
+    const tx = await fn();
+    if (tx && tx.wait) { document.getElementById("wallet").textContent = "Sent, waiting for Horizen…"; await tx.wait(); }
+    await refreshWallet(); await loadVaults();
+  } catch (e) { document.getElementById("wallet").textContent = "Not sent: " + (e.shortMessage || e.message).slice(0, 140); }
+}
+
+async function depositTo(i) {
+  const v = document.getElementById("amt" + i).value;
+  const amount = ethers.parseUnits(v || "0", 6);
+  if (amount === 0n) throw new Error("enter an amount");
+  const usdc = new ethers.Contract(TUSDC, ERC, signer);
+  if (await usdc.allowance(me, VHUB) < amount) await (await usdc.approve(VHUB, ethers.MaxUint256)).wait();
+  return vhub.connect(signer).deposit(i, amount);
+}
+
+async function redeemAll(i) {
+  return vhub.connect(signer).requestRedeem(i, await vhub.sharesOf(i, me));
+}
+
+async function refreshWallet() {
+  const usdc = new ethers.Contract(TUSDC, ERC, ro);
+  const [b, eth] = await Promise.all([usdc.balanceOf(me), ro.getBalance(me)]);
+  document.getElementById("wallet").innerHTML = `Connected ${me.slice(0, 8)}… · ${u6(b)} tUSDC · ${Number(ethers.formatEther(eth)).toFixed(5)} ETH for gas` +
+    (eth === 0n ? ` · <a style="color:var(--mint)" target="_blank" href="https://horizen-testnet.hub.caldera.xyz/">get testnet ETH</a>` : "");
+}
+
+document.getElementById("connect").onclick = () => act(async () => {
+  if (!window.ethereum) throw new Error("no browser wallet found");
+  try { await window.ethereum.request({method: "wallet_switchEthereumChain", params: [{chainId: CHAIN.chainId}]}); }
+  catch (e) { await window.ethereum.request({method: "wallet_addEthereumChain", params: [CHAIN]}); }
+  const bp = new ethers.BrowserProvider(window.ethereum);
+  signer = await bp.getSigner(); me = await signer.getAddress();
+  document.getElementById("connect").textContent = "Connected";
+  document.getElementById("faucet").disabled = false;
+});
+document.getElementById("faucet").onclick = () => act(() => new ethers.Contract(TUSDC, ERC, signer).mint(me, 1_000_000_000n));
+loadVaults().catch(e => { document.getElementById("vmeta").textContent = "Could not reach Horizen testnet: " + e.message; });
+setInterval(() => loadVaults().catch(() => {}), 60000);
 </script>
 </body>
 </html>

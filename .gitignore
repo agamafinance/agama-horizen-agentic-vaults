@@ -18,3 +18,8 @@ execution/zendex/.state/
 # live process output on the operator machine; the run itself is in the jsonl logs
 deployment/run-live.log
 deployment/zendex-live.log
+
+# a strategist's private logic: the agent's real prompt never leaves its machine
+agents/.private/
+zk/*/Prover_*.toml
+deployment/vaults-live.log

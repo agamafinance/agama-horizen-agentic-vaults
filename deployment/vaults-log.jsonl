@@ -1,0 +1,55 @@
+{"what": "approve bond momentum", "tx": "0x115bb92608c79eb93f6816794f25a2e92c99b68dcf7f593cfb99ae062c727c64", "status": "0x1", "gas": 46348}
+{"what": "approve bond momentum", "tx": "0x76325b2ad2c92c25365942907445e9b09a796a2f73ef9ff7806e08390962bd70", "status": "0x1", "gas": 26448}
+{"what": "register momentum", "tx": "0xa94adf0b75447d6be3f3264bd8d3b58616e08d810fdb568de4cd415bc60ecfae", "status": "0x1", "gas": 189491}
+{"what": "faucet tUSDC momentum", "tx": "0x90e8d133a619d56afbf6fca4e98d559e102d9665b4a41095d30327059faa01da", "status": "0x1", "gas": 51385}
+{"what": "approve tUSDC momentum", "tx": "0xb2ba66243af3671039e68ff04f8564309692b6d9ca70d59c5e603bdd15ade517", "status": "0x1", "gas": 46660}
+{"what": "approve bond mean-reversion", "tx": "0x1e2bc9df0975600f19596f570323474cbb185f3ce38c133a36fbe4d0a657bdc8", "status": "0x1", "gas": 46348}
+{"what": "register mean-reversion", "tx": "0x792320f94d7b49e162ed75811a745608ea9136c60401613870edea478f149bad", "status": "0x1", "gas": 155363}
+{"what": "faucet tUSDC mean-reversion", "tx": "0x2e9db160964e7d57cf2d1592adef71a2c0efc2fce4646933857933d295a3cc61", "status": "0x1", "gas": 51373}
+{"what": "approve tUSDC mean-reversion", "tx": "0xa9dff360d44192c183832b7ce75bf3c097c8d738b03ec9ff2dddeb69f93572e9", "status": "0x1", "gas": 46660}
+{"what": "approve bond ai-agent", "tx": "0x2a6d8ed235b1c3088421e877cc0a25a3becfe64d37666657e34793b94406755d", "status": "0x1", "gas": 46348}
+{"what": "register ai-agent", "tx": "0xcb84f063ddf40269a734dfd9aceb9a6cbfd06fa30880b565de72874779e103d0", "status": "0x1", "gas": 155291}
+{"what": "faucet tUSDC ai-agent", "tx": "0x52b3812b9ebe67c9b3e1d7545f816360465ef08d7159eb241807d81b7d43b39c", "status": "0x1", "gas": 51385}
+{"what": "approve tUSDC ai-agent", "tx": "0x19177a86bb4fbd3952e9fcef9d34e8583deaa1246506dcb3151d4a500668f604", "status": "0x1", "gas": 46660}
+{"what": "seed momentum e2", "tx": "0x49f1452c76d63f1c5fe0254421c8477204a3953ee8bfe03800aba50a8e8653df", "status": "0x1", "gas": 139675}
+{"what": "momentum commit e2", "tx": "0x4fa253d03151cba3ef65aafb0db39ff3e049024983fd5db380670a4a72181b37", "status": "0x1", "gas": 53652}
+{"what": "seed mean-reversion e2", "tx": "0xb2402a4b6cbdc75ca590290a07f02bacb04da1c0d69f05660e3446ceb0384f0f", "status": "0x1", "gas": 122587}
+{"what": "mean-reversion commit e2", "tx": "0xbf34647e2e709f209bb7dfd5782b91807e72170f1ec34242e15fc442e5888705", "status": "0x1", "gas": 53664}
+{"what": "seed ai-agent e2", "tx": "0x6ad988b08ca4ff6c0d9d151e53977d06874bdf1a995668f4f4072c789ad84f7c", "status": "0x1", "gas": 122587}
+{"what": "ai-agent commit e2", "tx": "0x130ec4465f022b357f4912bdbcc1f2210d6e671f1236a61fd57020dea2646ca1", "status": "0x1", "gas": 53664}
+{"what": "v2 prices e2", "tx": "0x30a8d2e2bb222ad10c1d45406f2d85b6179555cb698be455b214c01c145a1514", "status": "0x1", "gas": 95585}
+{"what": "v2 netting proof e2", "tx": "0x4208dc34dd2cbe8b3306ab9d16f5ede52fb157f8183b552c2bcbb68d4f5f3cc4", "status": "0x1", "gas": 2143074}
+{"what": "momentum settle e2", "tx": "0x5f6bacb33dd5ada79ecfc63e3dc05117976fdbe3864fa8fd48f5e5fa22c05bb1", "status": "0x1", "gas": 2162657}
+{"what": "momentum claim e2", "tx": "0xd60a7e8dae7fe9c2a5b7aecb625efede75f4dd02c2ed938e0b359d2ed1595029", "status": "0x1", "gas": 56864}
+{"what": "mean-reversion settle e2", "tx": "0x73eda62eed1450386ddbdb0cc417f1feafe0e13e6f854198240ee36e2d4c7c26", "status": "0x1", "gas": 2162873}
+{"what": "mean-reversion claim e2", "tx": "0x8dac6f597713a2e2dcb64e73869944c18e28f0e2e0f2ac08afb590307b400f74", "status": "0x1", "gas": 56876}
+{"what": "ai-agent settle e2", "tx": "0x0186880120c741c9c475dac4df04b67cdd0966cc0bbf03166707e387f0eff76e", "status": "0x1", "gas": 2162909}
+{"what": "ai-agent claim e2", "tx": "0x5408c8b24f0ec3f24e95539cf1f631e7b8fff4f85363a73bda6da97835e494c1", "status": "0x1", "gas": 56876}
+{"what": "momentum commit e3", "tx": "0x7eb40a33d620704473785fecb5679837de20c7839d0cd432d7e30066ff979315", "status": "0x1", "gas": 53652}
+{"what": "mean-reversion commit e3", "tx": "0x23253bc00832479f0804c726f6be4871a736598bdfbdc23e291717c445066d70", "status": "0x1", "gas": 53664}
+{"what": "ai-agent commit e3", "tx": "0xfdb0b5e8a967ed777fd9e76a02c15e7b9d94fc7cd3e93a7965c4ff7deaa6c15e", "status": "0x1", "gas": 53664}
+{"what": "v2 prices e3", "tx": "0x86257abd4731ecbdef91876af80ae465f2177da0c608b4a70accb81c9347ac84", "status": "0x1", "gas": 78497}
+{"what": "v2 netting proof e3", "tx": "0xec7a9415a830e7cba2b5debc93d68554803823683a4a633d3a9ca9f6ceab6552", "status": "0x1", "gas": 2129050}
+{"what": "momentum settle e3", "tx": "0x8413ee972783be6b41ae9c30f990c861534a6f62e3112de7732b806fa610599f", "status": "0x1", "gas": 2114026}
+{"what": "mean-reversion settle e3", "tx": "0x0be275715bc3357ebc5c5ba5aa331bc477aeafcc757d49c71292774485ff03fc", "status": "0x1", "gas": 2114158}
+{"what": "ai-agent settle e3", "tx": "0x7b8d7c1d0227dd154fe5252e6fc0a0991efb6a8b1ea2627f938ca6c99a657b43", "status": "0x1", "gas": 2114170}
+{"what": "momentum commit e4", "tx": "0x375be433d07a4754fcf406475f2f29f8b1172504f7b1fce4c75a169696862d4d", "status": "0x1", "gas": 53640}
+{"what": "mean-reversion commit e4", "tx": "0xcfdd3a21316c7a279d0482105391631c576f5097997ad81378fe8889966f8af1", "status": "0x1", "gas": 53664}
+{"what": "ai-agent commit e4", "tx": "0x12dce4f7cd20e6b3001f62b984b604b8416fa64683122a27ece4d23f9530e10c", "status": "0x1", "gas": 53664}
+{"what": "v2 prices e4", "tx": "0xb0d6d16f39df29a4724923b6ad499aec7183f8ef1c8a8c4ab3f90bbf7dc11251", "status": "0x1", "gas": 78497}
+{"what": "v2 netting proof e4", "tx": "0xb0e09d66ba3a8cc46813f134e47355efd41812c0005d0550377cab71fd489ec2", "status": "0x1", "gas": 2148830}
+{"what": "momentum settle e4", "tx": "0x481468b913d1a91b3485a91bb9cab2514bb3415067c83bcf59e74a9def8e4060", "status": "0x1", "gas": 2146674}
+{"what": "mean-reversion settle e4", "tx": "0xd438f01548a06cd8a5c75f68766326c04c13f4df58a8024e3823b8804f435dd0", "status": "0x1", "gas": 2114086}
+{"what": "ai-agent settle e4", "tx": "0x864d815ae130e1a471c1c59b79ad75ed808510e55c76003def7c5b73ccf00d38", "status": "0x1", "gas": 2146818}
+{"what": "momentum commit e5", "tx": "0xfebd2325c7d2bdc867b0ac4da057377ad92b76a3176861647781b32701084585", "status": "0x1", "gas": 53652}
+{"what": "mean-reversion commit e5", "tx": "0x6f378ffba3882336cc11430fe7de22a9bd0b69775040519e6c6d7dc1ab01f61f", "status": "0x1", "gas": 53664}
+{"what": "ai-agent commit e5", "tx": "0xf7fa2e1ba07ba5ce62222e2a03ce9a69f77abfec840b2b86e1d1f6f2c910981f", "status": "0x1", "gas": 53664}
+{"what": "v2 prices e5", "tx": "0x444d0ea6b2cb715c4db7721a80182759888961f1457a442cec79bd4d7b6f8534", "status": "0x1", "gas": 78485}
+{"what": "v2 netting proof e5", "tx": "0x2c1248ee5867ebce319568df9e96367a1a650ae280e6b2db52ee3c32f197ffb0", "status": "0x1", "gas": 2129050}
+{"what": "momentum settle e5", "tx": "0x5fd85f733196b035df63878f712898d7a85f9c6631e427958c7395033c25b77c", "status": "0x1", "gas": 2129646}
+{"what": "mean-reversion settle e5", "tx": "0xa48887d54b35801aa1042cfb8c78bc7774db66327bb95879700f1f67c7cdeef7", "status": "0x1", "gas": 2114110}
+{"what": "ai-agent settle e5", "tx": "0xbbffe90f2e463b502247c787bfd8c10fe477815938a85a898ed8bde199bd9a67", "status": "0x1", "gas": 2129670}
+{"what": "momentum commit e6", "tx": "0x96195f91caaccdbf2ab17d9e1bd44e8153b2f0d0ccf35cc8354491be12d238af", "status": "0x1", "gas": 53640}
+{"what": "mean-reversion commit e6", "tx": "0xa5ad6aef695c050481460df92d3a3aaa9284775e2f6117026fe175a6e9a35880", "status": "0x1", "gas": 53664}
+{"what": "ai-agent commit e6", "tx": "0xafb25ab0e3a22cd76044285dcd355b516a999f3ef55e1f9a70b1c4d167fe1ec4", "status": "0x1", "gas": 53664}
+{"what": "v2 prices e6", "tx": "0xe780841e5458187886e740b4b9de3434795fed0c67d662577fc6726f3f32be34", "status": "0x1", "gas": 78497}

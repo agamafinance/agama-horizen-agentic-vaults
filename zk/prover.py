@@ -66,12 +66,17 @@ def _pad(orders):
 def order_commit(strategy_id: int, epoch: int, orders, salt: int) -> int:
     o = _pad(orders)
     d = ZK / "order_commit"
-    (d / "Prover.toml").write_text(_toml({
+    name = f"Prover_oc_{secrets.token_hex(6)}"  # concurrent runners never share an input file
+    (d / f"{name}.toml").write_text(_toml({
         "strategy_id": strategy_id, "epoch": epoch,
         "assets": [x["asset"] for x in o], "sides": [x["side"] for x in o],
         "qtys": [x["qty"] for x in o], "salt": salt,
     }))
-    out = _run(["nargo", "execute", "oc"], d)
+    try:
+        out = _run(["nargo", "execute", "-p", name, f"oc_{name}"], d)
+    finally:
+        (d / f"{name}.toml").unlink(missing_ok=True)
+        (d / "target" / f"oc_{name}.gz").unlink(missing_ok=True)
     return int(re.search(r"Circuit output: (0x[0-9a-f]+)", out).group(1), 16)
 
 
@@ -89,7 +94,7 @@ def net(*, epoch, books, tag):
     slots = [(i, *books[i]) for i in ids] + [None] * (S - len(ids))
     empty = [{"asset": 0, "side": 0, "qty": 0}] * K
     d = ZK / "net_epoch"
-    (d / "Prover.toml").write_text(_toml({
+    (d / f"Prover_n_{tag}.toml").write_text(_toml({
         "orders": [[{"asset": x["asset"], "side": x["side"], "qty": x["qty"]} for x in (_pad(sl[1]) if sl else empty)] for sl in slots],
         "salts": [sl[2] if sl else 0 for sl in slots],
         "epoch": epoch,
@@ -97,7 +102,8 @@ def net(*, epoch, books, tag):
         "commits": [sl[3] if sl else 0 for sl in slots],
         "active": [sl is not None for sl in slots],
     }))
-    out = _run(["nargo", "execute", f"n_{tag}"], d)
+    out = _run(["nargo", "execute", "-p", f"Prover_n_{tag}", f"n_{tag}"], d)
+    (d / f"Prover_n_{tag}.toml").unlink(missing_ok=True)
     arrays = re.search(r"Circuit output: \((\[.*?\]), (\[.*?\]), (\[.*?\])\)", out)
     net_buy, net_sell, crossed = ([int(v, 0) for v in re.findall(r"0x[0-9a-f]+|\d+", g)] for g in arrays.groups())
     pdir = d / "target" / f"proof_{tag}"
@@ -112,7 +118,7 @@ def settle(*, strategy_id, epoch, old_bal, old_salt, orders, orders_salt, new_sa
            is_genesis, genesis_capital, tag):
     """Execute and prove one epoch. Returns (new_commit, nav, proof, public_inputs)."""
     d = ZK / "strategy_epoch"
-    (d / "Prover.toml").write_text(_toml({
+    (d / f"Prover_w_{tag}.toml").write_text(_toml({
         "old_bal": old_bal, "old_salt": old_salt,
         "orders": [{"asset": x["asset"], "side": x["side"], "qty": x["qty"]} for x in _pad(orders)],
         "orders_salt": orders_salt, "new_salt": new_salt,
@@ -121,13 +127,45 @@ def settle(*, strategy_id, epoch, old_bal, old_salt, orders, orders_salt, new_sa
         "prices": prices, "allowed_mask": allowed_mask, "max_weight_bps": max_weight_bps,
         "is_genesis": bool(is_genesis), "genesis_capital": genesis_capital,
     }))
-    out = _run(["nargo", "execute", f"w_{tag}"], d)
+    out = _run(["nargo", "execute", "-p", f"Prover_w_{tag}", f"w_{tag}"], d)
+    (d / f"Prover_w_{tag}.toml").unlink(missing_ok=True)
     m = re.search(r"Circuit output: \((0x[0-9a-f]+), (0x[0-9a-f]+|\d+)\)", out)
     new_commit, nav = int(m.group(1), 16), int(m.group(2), 0)
     pdir = d / "target" / f"proof_{tag}"
     _run(["bb", "prove", "--scheme", "ultra_honk", "--oracle_hash", "keccak",
           "-b", "target/strategy_epoch.json", "-w", f"target/w_{tag}.gz", "-o", str(pdir)], d)
     return new_commit, nav, (pdir / "proof").read_bytes(), (pdir / "public_inputs").read_bytes()
+
+
+def settle_vault(*, strategy_id, epoch, old_bal, old_salt, orders, orders_salt, new_salt, old_commit,
+                 orders_commit, prices, allowed_mask, max_weight_bps, inflow, redeem_shares, total_shares, tag):
+    """Execute and prove one vault epoch (vault_epoch circuit, with capital flows).
+    Returns (new_commit, nav, outflow, proof)."""
+    d = ZK / "vault_epoch"
+    (d / f"Prover_v_{tag}.toml").write_text(_toml({
+        "old_bal": old_bal, "old_salt": old_salt,
+        "orders": [{"asset": x["asset"], "side": x["side"], "qty": x["qty"]} for x in _pad(orders)],
+        "orders_salt": orders_salt, "new_salt": new_salt,
+        "strategy_id": strategy_id, "epoch": epoch,
+        "old_commit": old_commit, "orders_commit": orders_commit,
+        "prices": prices, "allowed_mask": allowed_mask, "max_weight_bps": max_weight_bps,
+        "inflow": inflow, "redeem_shares": redeem_shares, "total_shares": total_shares,
+    }))
+    out = _run(["nargo", "execute", "-p", f"Prover_v_{tag}", f"v_{tag}"], d)
+    (d / f"Prover_v_{tag}.toml").unlink(missing_ok=True)
+    m = re.search(r"Circuit output: \((0x[0-9a-f]+), (0x[0-9a-f]+|\d+), (0x[0-9a-f]+|\d+)\)", out)
+    new_commit, nav, outflow = int(m.group(1), 16), int(m.group(2), 0), int(m.group(3), 0)
+    pdir = d / "target" / f"proof_{tag}"
+    _run(["bb", "prove", "--scheme", "ultra_honk", "--oracle_hash", "keccak",
+          "-b", "target/vault_epoch.json", "-w", f"target/v_{tag}.gz", "-o", str(pdir)], d)
+    return new_commit, nav, outflow, (pdir / "proof").read_bytes()
+
+
+def apply_flows(bal, outflow, inflow):
+    """Mirror of the circuit's cash flows after the fills."""
+    b = list(bal)
+    b[0] = b[0] + inflow - outflow
+    return b
 
 
 def apply_orders(bal, orders, prices):

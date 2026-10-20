@@ -1,0 +1,18 @@
+{
+ "chain": "Horizen testnet",
+ "chain_id": 2651420,
+ "rpc": "https://horizen-testnet.rpc.caldera.xyz/http",
+ "explorer": "https://horizen-testnet.explorer.caldera.xyz",
+ "vault_hub": "0x4E9ec84f2f2B4a2DBa8175D37da433d556d7C183",
+ "vault_verifier": "0x3601f60B54fDe0576f215b00cf1a50D2491Cb7B1",
+ "attestor": "0xFa6c3f86922847dcf4303F1298a9BB5E6D9DD362",
+ "net_verifier": "0xb907c33270e07f45264b9B80e3908846c8B842F3",
+ "oracle": "0x43762739CEA3B2192A08b7a4C09102ed2913648A",
+ "treasury": "0x43762739CEA3B2192A08b7a4C09102ed2913648A",
+ "usdc": "0x276BF638000b0C80Ebd3d33104846E9F909C1f16",
+ "zen": "0x0497118dFAC26D8d05eB32669ba5568c7395cf44",
+ "genesis": 1792529972,
+ "epoch_length": 180,
+ "min_bond": 1000000000000000,
+ "capacity_per_zen": 10000000000000
+}

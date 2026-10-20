@@ -22,6 +22,9 @@ jobs:
       - name: Netting circuit tests
         working-directory: zk/net_epoch
         run: nargo test
+      - name: Vault circuit tests
+        working-directory: zk/vault_epoch
+        run: nargo test
 
   forge:
     name: forge test
