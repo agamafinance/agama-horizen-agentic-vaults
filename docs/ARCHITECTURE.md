@@ -25,9 +25,9 @@ Horizen's RFP 1, private agentic trading vaults.
 
 1. Strategists send encrypted orders. The hash of each order set is committed on chain before the epoch closes. **(running)**
 2. After the close, the oracle posts closing prices. **(running, exchange prices on testnet, Stork on mainnet)**
-3. The netting engine crosses opposite orders between strategies at the closing price. **(running, operator-side)**
+3. The netting engine crosses opposite orders between strategies at the closing price. **(running, with a proof the NettingAttestor verifies on chain)**
 4. The net order executes once, on ZENDEX or against Base liquidity. Fills are allocated back per strategy. **(running on ZENDEX testnet, hourly, at sandbox scale; allocation back per strategy is M1)**
-5. Proofs: one for the netting, one per strategy for its book, mandate and NAV. **(the per-strategy proof is running)**
+5. Proofs: one for the netting, one per strategy for its book, mandate and NAV. **(both running)**
 6. Per strategy, the chain records a new commitment, a NAV per share, a drawdown and a mandate check. **(running)**
 7. The contract enforces the guards on its own: a drawdown beyond the declared limit freezes new orders, a missing proof suspends the strategy.
 
@@ -70,8 +70,8 @@ drawdown it declared.
 
 | | Scope | Evidence of completion |
 |---|---|---|
-| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; hub and verifier on Horizen testnet; two sandbox strategies over 136 epochs each, 272 proven settlements; three attacks refused on chain; netting every epoch and the net flow sent hourly to ZENDEX testnet as private swaps through its relayer | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh`, `deployment/execution-log.jsonl` |
-| **M1, the hard part** | a proof for the netting; fills allocated back per strategy; shared pool; ERC-4626 vault per strategy priced at proven NAV; ZEN bond and mandate registry; strategist SDK; three or more strategies including two external ones over two weeks of hourly epochs; a public attack suite covering every guard | public repository, source-verified contracts, keyless state reader, transaction hashes |
+| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; hub and verifier on Horizen testnet; two sandbox strategies over 136 epochs each, 272 proven settlements; three attacks refused on chain; netting every epoch, proven on chain by its own circuit, and the net flow sent hourly to ZENDEX testnet as private swaps through its relayer | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh`, `deployment/execution-log.jsonl` |
+| **M1, the hard part** | fills allocated back per strategy at the batch's execution price; shared pool; ERC-4626 vault per strategy priced at proven NAV; ZEN bond and mandate registry; strategist SDK; three or more strategies including two external ones over two weeks of hourly epochs; a public attack suite covering every guard | public repository, source-verified contracts, keyless state reader, transaction hashes |
 | **M2, audit** | contracts and Noir circuits audited by a Foundation-approved auditor; fixes; public report | the report |
 | **M3, mainnet usage** | mainnet launch tied to ZENDEX mainnet, or a fixed date with Base execution if ZENDEX is not live; three months measured on the RFP's metrics: execution volume routed, active strategies with external depositors, unique depositors, total deposited, fee revenue | on-chain figures |
 
