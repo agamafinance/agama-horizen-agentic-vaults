@@ -107,8 +107,24 @@ def load(name):
 
 
 def save(name, st):
+    # write then rename, so a full disk or a crash never leaves a half-written state
     STATE.mkdir(exist_ok=True)
-    (STATE / f"{name}.json").write_text(json.dumps(st, indent=1))
+    tmp = STATE / f"{name}.json.tmp"
+    tmp.write_text(json.dumps(st, indent=1))
+    os.replace(tmp, STATE / f"{name}.json")
+
+
+def check_books():
+    """The local salt and balances must open the commitment on chain. If a settlement
+    landed but its state was not saved, every later proof would be refused, so stop."""
+    for name in STRATEGIES:
+        st = load(name)
+        if not st.get("started"):
+            continue
+        out = call("strategy(uint256)((address,uint8,uint64,bytes32,uint64,bool,uint64,uint64,uint64,uint32,string))", st["id"])
+        book = out.split(", ")[3]
+        if int(book, 16) != st["commit"]:
+            raise SystemExit(f"{name}: local state does not open the book on chain ({book}), recover it before running")
 
 
 def setup():
@@ -128,6 +144,8 @@ def setup():
 
 
 def epochs(n):
+    prover.check_toolchain()
+    check_books()
     oracle = oracle_key()
     cap = DEP["capital"]
     hist_file = STATE / "prices.json"

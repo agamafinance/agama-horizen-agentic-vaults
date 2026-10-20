@@ -17,7 +17,9 @@ import subprocess
 from pathlib import Path
 
 ZK = Path(__file__).resolve().parent
-ENV = dict(os.environ, PATH=f"{Path.home()}/.nargo/bin:{Path.home()}/.bb:{os.environ['PATH']}")
+NARGO_BIN = os.environ.get("NARGO_BIN", f"{Path.home()}/.nargo/bin")
+ENV = dict(os.environ, PATH=f"{NARGO_BIN}:{Path.home()}/.bb:{os.environ['PATH']}")
+NOIR_VERSION = "1.0.0-beta.13"  # the deployed verifier was generated with this toolchain
 K = 4
 FIELD_MODULUS = 21888242871839275222246405745257275088548364400416663239198124012602088286593
 
@@ -36,6 +38,15 @@ def _toml(d: dict) -> str:
             return "{ " + ", ".join(f"{k} = {val(x)}" for k, x in v.items()) + " }"
         return f'"{v}"'
     return "\n".join(f"{k} = {val(v)}" for k, v in d.items()) + "\n"
+
+
+def check_toolchain():
+    """A proof from another nargo version does not verify against the deployed
+    verifier, so refuse to start rather than fail at settlement."""
+    out = subprocess.run(["nargo", "--version"], env=ENV, capture_output=True, text=True).stdout
+    if NOIR_VERSION not in out:
+        raise SystemExit(f"need nargo {NOIR_VERSION}, found: {out.splitlines()[0] if out else 'none'}. "
+                         f"Install it with NARGO_HOME=~/.nargo-beta13 noirup -v {NOIR_VERSION} and set NARGO_BIN")
 
 
 def _run(cmd, cwd):

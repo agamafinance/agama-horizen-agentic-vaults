@@ -9,7 +9,7 @@
 # produces, byte for byte.
 set -euo pipefail
 cd "$(dirname "$0")"
-export PATH="$HOME/.nargo/bin:$HOME/.bb:$PATH"
+export PATH="${NARGO_BIN:-$HOME/.nargo/bin}:$HOME/.bb:$PATH"
 echo "nargo $(nargo --version | head -1 | awk '{print $4}'), bb $(bb --version)"
 
 echo "== circuits"
