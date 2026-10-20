@@ -218,7 +218,8 @@ export async function deposit(sym, amountBase, tag = {}) {
   const pd = await prove('deposit', { asset_id: String(t.id), amount: plan.amount, commitment: plan.pkCommitment, pk_x: k.pkX.toString(), pk_y: k.pkY.toString(), rho: plan.rho });
   const token = new ethers.Contract(t.address, ERC20, w);
   if ((await token.allowance(w.address, VAULT_MANAGER)) < amount) {
-    const ra = await send(token.approve(VAULT_MANAGER, amount));
+    // testnet faucet tokens: approve once rather than paying an approval per deposit
+    const ra = await send(token.approve(VAULT_MANAGER, ethers.MaxUint256));
     db = loadDb(); logTx(db, `approve ${t.label}`, ra.hash); saveDb(db);
   }
   const vm = new ethers.Contract(VAULT_MANAGER, VM_ABI, w);
