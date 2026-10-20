@@ -32,3 +32,11 @@ jobs:
       - name: Contract tests against real proofs
         working-directory: contracts
         run: forge test -vv --summary
+
+  python:
+    name: netting tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Netting across strategies
+        run: python3 -m unittest discover -s agents -p 'test_*.py' -v

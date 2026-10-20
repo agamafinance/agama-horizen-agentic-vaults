@@ -28,12 +28,14 @@ sys.path.insert(0, str(ROOT / "zk"))
 sys.path.insert(0, str(ROOT / "agents"))
 import prover  # noqa: E402
 from strategies import STRATEGIES  # noqa: E402
+import netting  # noqa: E402
 
 DEP = json.loads((ROOT / "deployment" / "testnet.json").read_text())
 RPC, HUB = DEP["rpc"], DEP["hub"]
 KEYS = ROOT / "agents" / ".keys"
 STATE = ROOT / "agents" / "state"
 LOG = ROOT / "deployment" / "testnet-log.jsonl"
+NET_LOG = ROOT / "deployment" / "netting-log.jsonl"
 SCALE = 1_000_000
 
 
@@ -185,6 +187,12 @@ def epochs(n):
         print(f"e{e} oracle: ETH {px[1] / SCALE:,.2f} · BTC {px[2] / SCALE:,.2f} · ZEN {px[3] / SCALE:,.3f}  tx {txh[:12]}…", flush=True)
         history.append(px)
         hist_file.write_text(json.dumps(history))
+
+        # 2b. net the batch: only the residual of the hub as a whole would go to market
+        to_market, crossed = netting.net({n: load(n)["pending"]["orders"] for n in STRATEGIES}, px)
+        with NET_LOG.open("a") as f:
+            f.write(json.dumps({"epoch": e, "prices": px, "crossed": crossed, "to_market": to_market}) + "\n")
+        print(f"e{e} {netting.describe(to_market, crossed)}", flush=True)
 
         # 3. strategists prove and settle
         for name, cfg in STRATEGIES.items():
