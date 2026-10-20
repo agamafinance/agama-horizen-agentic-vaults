@@ -7025,3 +7025,17 @@
 {"what": "netting proof e9731", "tx": "0x0f0ec4730b1f63a448ab5b8957b6bdbcffe040f92b49342d2f7f6dc17c2a6066", "status": "0x1", "gas": 2128006}
 {"what": "momentum commit e9732", "tx": "0x51daec5a7852b746c8f5d712228a7eca76e5e73f8f5fea91f242782c0900842b", "status": "0x1", "gas": 51316}
 {"what": "mean-reversion commit e9732", "tx": "0xa561a1420786d61de452a43182fc20d40c5c145ff20ccf5970cc39b1586d85cf", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9733", "tx": "0xe82dcfa2898a24d668f4fa6f86ed7aaf9db7d96a09fd91e2dbc43e75a0d31f4c", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9733", "tx": "0x8a1868cc846d345e9892922cb22892cb58bdb971c10003674f839f5b1b79b82e", "status": "0x1", "gas": 51328}
+{"what": "prices e9733", "tx": "0xd72a6a6d8e59f2a4bc7fa6705cdb18d7f1f60c3da6b356792af50cde871b5aac", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9733", "tx": "0xb5e22040e735eddad4eef7f2fcda0d392a592aaa46263a11acd05f10c2b9f631", "status": "0x1", "gas": 2128042}
+{"what": "momentum settle e9733", "tx": "0x80cebf18be941c47798a10db1a03b5171b38536321bc880eb3eb9778807906f3", "status": "0x1", "gas": 2070531}
+{"what": "mean-reversion settle e9733", "tx": "0x22b562aa0bb5c07ae5f33287ac20175341ed87ecf54fefa4f2433f72b2674829", "status": "0x1", "gas": 2070423}
+{"what": "momentum commit e9734", "tx": "0x2161ea71922a8a550790937a06620ee080f367f168ac5bf50df01286b397d655", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9734", "tx": "0xe80d28f3971a06da18e8884d1043ceb24b1c2d6cd1a5331b640a95f782194710", "status": "0x1", "gas": 51328}
+{"what": "prices e9734", "tx": "0x02ec2040c2640c2bd5b9bed6343784566b745319cbd59bfeb31121b423b17cab", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9734", "tx": "0xd6c5bbb866bbf794fb24a5ce17791a27554b1b588ff6ad5a52a232101d768f81", "status": "0x1", "gas": 2167914}
+{"what": "momentum settle e9734", "tx": "0xa8e0d36913fd228c891381471a4e4fe89dc2bf9853e4f2e85d78045d60cf9152", "status": "0x1", "gas": 2070399}
+{"what": "mean-reversion settle e9734", "tx": "0x54d4c4636ff085affa1e001ecf7a09acc1413d823872ffdf308f507c39aae7da", "status": "0x1", "gas": 2070579}
+{"what": "momentum commit e9735", "tx": "0x13637350035de7a7cafcfa6f3423939afc68412ce749bc961a6031a43793cdaf", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e9735", "tx": "0x92c610999d8a57e86d6234c6d5984e90cd4d8df09de7ce4ea5f5409f93894373", "status": "0x1", "gas": 51328}
