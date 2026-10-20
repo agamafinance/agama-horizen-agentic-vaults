@@ -10,7 +10,7 @@
   <g font-size="15" font-weight="700" fill="#6b7280" letter-spacing="1.2">
     <text x="80" y="170">OFF-CHAIN · HELD BY EACH STRATEGIST</text>
     <text x="80" y="470">HORIZEN L3 · TESTNET 2651420</text>
-    <text x="80" y="800">EXECUTION · NEXT MILESTONE</text>
+    <text x="80" y="800">EXECUTION · NETTING AND ZENDEX LIVE ON TESTNET · BASE NEXT</text>
   </g>
   <rect x="60" y="182" width="1800" height="220" rx="14" fill="none" stroke="#e5e7eb"/>
   <rect x="60" y="482" width="1800" height="250" rx="14" fill="none" stroke="#d1d5db"/>
@@ -40,11 +40,11 @@
   <text font-size="22" fill="#111827"><tspan x="1450" y="595" text-anchor="middle" font-weight="700">EpochVerifier</tspan><tspan x="1450" y="628" text-anchor="middle">UltraHonk · ~2.1M gas</tspan></text>
 
   <!-- execution -->
-  <rect x="660" y="850" width="460" height="145" rx="10" fill="#fff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 5"/>
-  <text font-size="22" fill="#6b7280"><tspan x="890" y="900" text-anchor="middle" font-weight="700">Netting engine</tspan><tspan x="890" y="934" text-anchor="middle">one net order per epoch</tspan><tspan x="890" y="966" text-anchor="middle">v1 operator · v2 Vela enclave</tspan></text>
+  <rect x="660" y="850" width="460" height="145" rx="10" fill="#fff" stroke="#111827" stroke-width="2.5"/>
+  <text font-size="22" fill="#111827"><tspan x="890" y="900" text-anchor="middle" font-weight="700">Netting engine</tspan><tspan x="890" y="934" text-anchor="middle">nets every epoch · executes hourly</tspan><tspan x="890" y="966" text-anchor="middle">v1 operator · v2 Vela enclave</tspan></text>
   <rect x="1300" y="850" width="250" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
-  <text font-size="22" fill="#15803d"><tspan x="1425" y="912" text-anchor="middle" font-weight="700">ZENDEX</tspan><tspan x="1425" y="944" text-anchor="middle">private DEX</tspan></text>
-  <rect x="1600" y="850" width="220" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text font-size="22" fill="#15803d"><tspan x="1425" y="912" text-anchor="middle" font-weight="700">ZENDEX</tspan><tspan x="1425" y="944" text-anchor="middle">private swaps</tspan></text>
+  <rect x="1600" y="850" width="220" height="145" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" stroke-dasharray="7 5"/>
   <text font-size="22" fill="#15803d"><tspan x="1710" y="912" text-anchor="middle" font-weight="700">Base liquidity</tspan><tspan x="1710" y="944" text-anchor="middle">private bridge</tspan></text>
 
   <!-- arrows -->
@@ -54,12 +54,12 @@
     <path d="M890 365 V502"/>
     <path d="M1425 365 V430 H1060 V502"/>
     <path d="M1120 605 H1292"/>
+    <path d="M890 700 V842"/>
+    <path d="M1120 922 H1292"/>
   </g>
   <g stroke="#9ca3af" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a)">
     <path d="M1710 365 V752 H320 V698"/>
     <path d="M520 605 H652"/>
-    <path d="M890 700 V842"/>
-    <path d="M1120 922 H1292"/>
     <path d="M1120 975 H1250 V1012 H1710 V1003"/>
   </g>
   <g font-size="19" fill="#111827">

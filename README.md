@@ -17,8 +17,9 @@ line: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 > **Status.** A sandbox, started on 30 September 2026. Strategies trade virtual capital at
 > real exchange prices, so every NAV below is proven but none of it is money.
-> Netting across strategies, deposits, the ZEN bond and execution venues are
-> the next milestone. Nothing is audited.
+> Since 20 October the hub also nets its strategies every epoch and sends the
+> net flow to ZENDEX testnet as private swaps, at sandbox scale. Deposits, the
+> ZEN bond and Base liquidity are the next milestone. Nothing is audited.
 
 ---
 
@@ -52,10 +53,10 @@ flowchart TB
         VAULTS["Strategy vaults · ERC-4626<br/>ZEN bond · public ranking"]
     end
 
-    subgraph market["EXECUTION · next milestone"]
+    subgraph market["EXECUTION · netting and ZENDEX live on testnet"]
         direction LR
-        NET["Netting engine<br/>one net order per epoch<br/>v1 operator · v2 Vela enclave"]
-        ZENDEX["ZENDEX<br/>private DEX on Horizen"]
+        NET["Netting engine<br/>nets every epoch · executes hourly<br/>v1 operator · v2 Vela enclave"]
+        ZENDEX["ZENDEX<br/>private swaps on Horizen"]
         BASE["Base liquidity<br/>via the cluster's private bridge"]
     end
 
@@ -66,8 +67,8 @@ flowchart TB
     HUB -->|"verify"| VER
     DEP -.-> VAULTS
     VAULTS -.-> HUB
-    HUB -.-> NET
-    NET -.-> ZENDEX
+    HUB --> NET
+    NET -->|"private swaps, via the ZENDEX relayer"| ZENDEX
     NET -.-> BASE
 
     classDef actor fill:#eff6ff,stroke:#2563eb,color:#1e40af
@@ -81,8 +82,9 @@ flowchart TB
     class HUB,VER core
     class PROVER offchain
     class FEED feed
-    class ZENDEX,BASE integration
-    class NET,VAULTS next
+    class ZENDEX integration
+    class NET core
+    class VAULTS,BASE next
     style inputs fill:#ffffff,stroke:#ffffff
 ```
 
@@ -142,6 +144,29 @@ The balances behind those numbers, and the orders that moved them, are not on ch
 
 The strategies are deliberately simple, three-minute epochs and a 40% cap per asset, and they trade real prices: ZEN and ETH dropped and then recovered across the runs, and the record shows both legs, losses published exactly like gains. That is the point of a proven track record: nothing is picked after the fact, and each figure links to the transaction that verified it. The [live page](https://agamafinance.github.io/agama-horizen-agentic-vaults/) ([`docs/index.html`](docs/index.html)) draws the same record straight from the chain.
 
+## Netting and private execution on ZENDEX
+
+The RFP's other half is confidential execution. It runs on testnet since 20 October 2026.
+
+**Netting, every epoch.** Once prices are posted, [`agents/netting.py`](agents/netting.py) crosses opposite orders between strategies at the closing price. Only the residual, one net quantity per asset for the whole hub, is meant for the market. Each epoch's result is appended to [`deployment/netting-log.jsonl`](deployment/netting-log.jsonl).
+
+**Execution, every hour.** [`execution/zendex/`](execution/zendex) sums the net flow of the last 20 epochs and sends it to [ZENDEX](https://testnet.zendex.fi), the shielded AMM on Horizen, as private swaps. Our script runs the same client flow as the ZENDEX app:
+- it deposits into the shielded pool with a Noir proof;
+- it proves that the note is in the pool's Merkle tree and that the swap is valid;
+- it hands both proofs to the ZENDEX relayer, which sends the transaction and pays its gas.
+
+The venue sees the hub's net flow for the hour. It does not see which strategy traded or what each one did, and the swap does not come from our wallet.
+
+One hour of real flow, for example, epoch 9691:
+
+| Hub net flow | Sent to ZENDEX (sandbox scale, 1/10,000) | Transactions |
+|---|---|---|
+| buy 1.20 BTC, 99,192 USDC | deposit 9.92 tUSDC, swap to WZEN, swap to tcbBTC | [deposit](https://horizen-testnet.explorer.caldera.xyz/tx/0x20cd9f9422d9dae1c3502aca5d7e979f9cb506697fb78157ddacafc3994290c3) · [swap](https://horizen-testnet.explorer.caldera.xyz/tx/0x30184d2567cf4c748ba97287675439bc944b9db2b600db6fef1cc0e834eb0842) · [swap](https://horizen-testnet.explorer.caldera.xyz/tx/0x3016ecd6def38b7b47161115daa10fa90dc589a746394892ed3397b5cd69e9c9) |
+| sell 18,283 ZEN, 110,100 USDC | a WZEN note held in the pool, swapped to tUSDC | [swap](https://horizen-testnet.explorer.caldera.xyz/tx/0x313101aa7579a52aeffa67fec462576318bf7c1f62a3a2639348908a0540a1ac) |
+| sell 8.48 ETH | not sent: ZENDEX testnet has no ETH market | |
+
+Every leg, executed or skipped, is in [`deployment/execution-log.jsonl`](deployment/execution-log.jsonl). Testnet pools hold faucet tokens at synthetic prices, so each leg is sized by its USDC notional and the fill prices say nothing about a real market. What the sandbox shows is the path: proven books, a netted batch, and private swaps on a Horizen venue, with no strategy visible along the way.
+
 ## Attacks, mined on chain
 
 Three attacks sent as real transactions from a separate test strategy, mined, and reverted. Each one was set up so that every check before the targeted one passes, and the revert data was decoded to confirm which check refused it. Details in [`deployment/attacks.json`](deployment/attacks.json).
@@ -178,7 +203,8 @@ python3 deployment/report.py           # the tables above, rebuilt from chain da
 | `contracts/src/AgentVaultHub.sol` | registry, order commitments, closing prices, proven settlement |
 | `contracts/src/EpochVerifier.sol` | generated by `bb write_solidity_verifier` |
 | `contracts/test/` | the honest path and every refusal, against real proofs |
-| `agents/` | the two strategies, the live runner, the attack script |
+| `agents/` | the two strategies, the live runner, the netting, the attack script |
+| `execution/zendex/` | sends each hour's net flow to ZENDEX as private swaps |
 | `deployment/` | addresses, transaction log, public state reader, bytecode check, report |
 | `docs/` | architecture and milestones, the diagrams (Mermaid source and rendered), the live track record page |
 
@@ -187,17 +213,17 @@ fraction of a cent on Horizen. Proving takes under a second on a laptop.
 
 ## What comes next
 
-The RFP's other half is confidential execution. The next milestone adds it:
+Netting and ZENDEX execution run today. The next milestone adds:
 
-- **netting across strategies**: one batch per epoch, opposite orders crossed
-  at the closing price, a single net order sent to market, so no strategy's
-  trade history can be read back from the chain
+- **a proof for the netting**: today the operator nets the batch; the next
+  step proves that the net flow is exactly the sum of the committed orders
 - **vaults with real deposits**, one ERC-4626 per strategy, priced at the
   proven NAV
 - **the strategy lifecycle** the RFP asks about: sandbox, incubation, open,
   with a public ranking computed from proven figures and a strategist bond in
   ZEN sized to the capital a strategy may manage
-- **execution venues**: ZENDEX on Horizen, and Base liquidity
+- **execution at real size**: ZENDEX mainnet, and Base liquidity for assets
+  Horizen does not list, starting with ETH
 - **operator blindness**: netting inside a Vela enclave once Vela runs on
   Horizen with hardware attestation
 
