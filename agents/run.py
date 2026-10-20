@@ -52,15 +52,17 @@ def oracle_key():
 
 
 def sh(*args, attempts=6):
-    """Run a command. A failure to reach the RPC is retried: cast never got a
-    request through, so nothing was sent. Any other failure stops the run."""
+    """Run a command. A failure to reach the RPC, or the RPC's rate limit, is
+    retried: the request never got through, so nothing was sent. Any other
+    failure stops the run."""
     for i in range(attempts):
         r = subprocess.run(args, capture_output=True, text=True)
         if r.returncode == 0:
             return r.stdout.strip()
-        if "error sending request" not in r.stderr or i == attempts - 1:
+        transient = "error sending request" in r.stderr or "429" in r.stderr or "Bandwidth limit" in r.stderr
+        if not transient or i == attempts - 1:
             raise RuntimeError(r.stderr.strip()[-400:])
-        print(f"RPC unreachable, retrying in {10 * (i + 1)} s", flush=True)
+        print(f"RPC unreachable or rate limited, retrying in {10 * (i + 1)} s", flush=True)
         time.sleep(10 * (i + 1))
 
 

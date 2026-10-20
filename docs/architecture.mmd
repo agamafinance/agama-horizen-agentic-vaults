@@ -2,27 +2,27 @@
 flowchart TB
     subgraph offchain["OFF-CHAIN · held by each strategist"]
         direction LR
-        STRAT["Strategist agent<br/>any model: quant, rules, AI<br/>keeps its book, orders and salts"]
-        PROVER["Prover · Noir + UltraHonk<br/>strategy_epoch circuit<br/>book · fills · mandate · NAV · under 1 s"]
+        STRAT["Strategist agent<br/>any model: quant, rules, AI<br/>keeps its book, orders and prompt"]
+        PROVER["Prover · Noir + UltraHonk<br/>vault_epoch · net_epoch circuits<br/>book · flows · mandate · NAV · under 1 s"]
     end
 
     subgraph inputs[" "]
         direction LR
         FEED["Price oracle<br/>exchange closes on testnet<br/>Stork on mainnet"]
-        DEP["Depositors<br/>choose on proven track record"]
+        DEP["Depositors<br/>tUSDC in, shares at the proven NAV"]
     end
 
     subgraph horizen["HORIZEN L3 · testnet 2651420"]
         direction LR
-        HUB["AgentVaultHub<br/>commitOrders · postPrices · settle<br/>book commitments · proven NAV · drawdown"]
-        VER["EpochVerifier<br/>UltraHonk · ~2.1M gas"]
-        VAULTS["Strategy vaults · ERC-4626<br/>ZEN bond · public ranking"]
+        HUB["VaultHub<br/>commitOrders · postPrices · settle<br/>shares at the proven NAV · ZEN bond · fees · freeze"]
+        VER["Vault + Net verifiers<br/>UltraHonk · ~2.1M gas"]
+        VAULTS["NettingAttestor<br/>net flow of every committed order set, proven"]
     end
 
-    subgraph market["EXECUTION · next milestone"]
+    subgraph market["EXECUTION · netting and ZENDEX live on testnet"]
         direction LR
-        NET["Netting engine<br/>one net order per epoch<br/>v1 operator · v2 Vela enclave"]
-        ZENDEX["ZENDEX<br/>private DEX on Horizen"]
+        NET["Netting engine<br/>nets every epoch · executes hourly<br/>proven on chain · v2 Vela enclave"]
+        ZENDEX["ZENDEX<br/>private swaps on Horizen"]
         BASE["Base liquidity<br/>via the cluster's private bridge"]
     end
 
@@ -31,10 +31,10 @@ flowchart TB
     FEED -->|"2 · closing prices, after the close"| HUB
     PROVER -->|"3 · proof, new commitment, NAV"| HUB
     HUB -->|"verify"| VER
-    DEP -.-> VAULTS
-    VAULTS -.-> HUB
-    HUB -.-> NET
-    NET -.-> ZENDEX
+    DEP -->|"4 · deposits, redemptions"| HUB
+    HUB -->|"reads the batch"| VAULTS
+    HUB --> NET
+    NET -->|"private swaps, via the ZENDEX relayer"| ZENDEX
     NET -.-> BASE
 
     classDef actor fill:#eff6ff,stroke:#2563eb,color:#1e40af
@@ -48,6 +48,8 @@ flowchart TB
     class HUB,VER core
     class PROVER offchain
     class FEED feed
-    class ZENDEX,BASE integration
-    class NET,VAULTS next
+    class ZENDEX integration
+    class NET core
+    class VAULTS core
+    class BASE next
     style inputs fill:#ffffff,stroke:#ffffff

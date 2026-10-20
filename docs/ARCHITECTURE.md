@@ -10,15 +10,15 @@ Horizen's RFP 1, private agentic trading vaults.
 
 | The RFP asks for | How the design answers |
 |---|---|
-| automated strategies (quant, rules, AI agents) trading for depositors | one vault per strategy; depositors choose a strategy, the strategy trades that vault's capital |
-| not exposing strategy logic on chain | logic never reaches the chain: the strategist runs its model on its own infrastructure and only sends encrypted orders |
+| automated strategies (quant, rules, AI agents) trading for depositors | one vault per strategy; depositors choose a strategy, the strategy trades that vault's capital **(running: three vaults, one of them an AI agent, open to any wallet)** |
+| not exposing strategy logic on chain | logic never reaches the chain: the strategist runs its model on its own infrastructure and only sends orders to the netting operator **(running: the AI agent's prompt is not in this repository)** |
 | not exposing positions or holdings | each strategy's book is private and only committed to on chain; assets sit in a shared pool, so the chain sees a total, never a strategy's share |
 | a strategy that cannot be reverse-engineered from its trade history | orders are batched per epoch and netted across strategies; only the net order reaches the market |
-| verifiable performance attestation | every epoch, a ZK proof that the new book is the old book plus real fills, that the mandate holds, and that the NAV is the value of that book at posted prices **(running, see the README)** |
-| where strategies come from, how they are onboarded and ranked | open registration through an SDK; sandbox, then incubation, then open to depositors; a public ranking computed from proven figures only |
-| how the protocol accrues fees | management and performance fees above a high-water mark, an execution fee on routed volume, and a share of the saving from internal netting |
-| integration with the cluster's private venues and with Base liquidity | the net order executes on ZENDEX on Horizen, or against Base liquidity through a private bridge |
-| ZEN in the tokenomics | a strategist bond in ZEN sized to the capital a strategy may manage, and a share of protocol revenue to ZEN staking |
+| verifiable performance attestation | every epoch, a ZK proof that the new book is the old book plus its fills, that the mandate holds, that the NAV is the value of that book at posted prices, and that deposits and redemptions are priced at that NAV **(running)** |
+| where strategies come from, how they are onboarded and ranked | open registration with a ZEN bond; a sandbox the strategist seeds, then open to depositors; a public ranking computed from proven figures only **(running; the SDK for outside strategists is M1, see [STRATEGISTS.md](STRATEGISTS.md))** |
+| how the protocol accrues fees | a performance fee above a high-water mark, in shares, split between strategist and protocol **(running)**; an execution fee on routed volume and a share of the saving from internal netting (M1) |
+| integration with the cluster's private venues and with Base liquidity | the proven net order executes on ZENDEX on Horizen **(running, hourly private swaps through its relayer)**, or against Base liquidity through a private bridge (M1) |
+| ZEN in the tokenomics | a strategist bond in ZEN that sets the capital a vault may manage and is slashed if it stops proving **(running)**, and a share of protocol revenue to ZEN staking (mainnet) |
 | Horizen as the privacy coordination and execution layer | books, orders, proofs, ranking, bonds and fees live on Horizen; Base provides liquidity only |
 
 ## One epoch
@@ -28,8 +28,8 @@ Horizen's RFP 1, private agentic trading vaults.
 3. The netting engine crosses opposite orders between strategies at the closing price. **(running, with a proof the NettingAttestor verifies on chain)**
 4. The net order executes once, on ZENDEX or against Base liquidity. Fills are allocated back per strategy. **(running on ZENDEX testnet, hourly, at sandbox scale; allocation back per strategy is M1)**
 5. Proofs: one for the netting, one per strategy for its book, mandate and NAV. **(both running)**
-6. Per strategy, the chain records a new commitment, a NAV per share, a drawdown and a mandate check. **(running)**
-7. The contract enforces the guards on its own: a drawdown beyond the declared limit freezes new orders, a missing proof suspends the strategy.
+6. Per strategy, the chain records a new commitment, a NAV per share, a drawdown and a mandate check, and prices the epoch's deposits and redemptions at that NAV. **(running)**
+7. The contract enforces the guards on its own: a drawdown beyond the declared limit freezes the vault, and a vault that holds deposits and stops proving can be slashed by anyone. **(running)**
 
 ## Who sees what
 
@@ -54,12 +54,13 @@ through a viewing key. Solvency and mandate checks stay per epoch.
 
 ## Strategy lifecycle
 
-1. **Sandbox.** Virtual capital at real prices, commit-before-outcome and
-   proofs exactly as in production. A strategy builds a proven track record
-   before it manages a dollar. This is what runs today.
-2. **Incubation.** Small, capped capital.
-3. **Open.** External depositors, once a strategy has enough proven epochs and
-   stays inside its risk limits.
+1. **Sandbox.** The strategist seeds its own vault, and only the strategist
+   can deposit, for the first 20 proven epochs. Commit-before-outcome and
+   proofs are exactly as in production. **(running)**
+2. **Open.** After that, anyone can deposit up to the vault's capacity, which
+   its ZEN bond sets. **(running)**
+3. **Incubation tiers** between the two, with capacity also scaling with the
+   proven record, are M1.
 
 The capital a strategy may manage scales with its ZEN bond and its proven
 record. The mandate cannot be broken, the proof forbids it, so the bond covers
@@ -70,14 +71,16 @@ drawdown it declared.
 
 | | Scope | Evidence of completion |
 |---|---|---|
-| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; hub and verifier on Horizen testnet; two sandbox strategies over 136 epochs each, 272 proven settlements; three attacks refused on chain; netting every epoch, proven on chain by its own circuit, and the net flow sent hourly to ZENDEX testnet as private swaps through its relayer | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh`, `deployment/execution-log.jsonl` |
-| **M1, the hard part** | fills allocated back per strategy at the batch's execution price; shared pool; ERC-4626 vault per strategy priced at proven NAV; ZEN bond and mandate registry; strategist SDK; three or more strategies including two external ones over two weeks of hourly epochs; a public attack suite covering every guard | public repository, source-verified contracts, keyless state reader, transaction hashes |
+| **M0, done** | per-strategy proof of book, mandate and NAV; commit-before-outcome; vaults with depositors, shares priced at the proven NAV, an asynchronous redemption queue; ZEN bond with capacity and slashing; performance fee; sandbox then open; drawdown freeze; three live vaults including an AI agent; netting every epoch, proven on chain by its own circuit; the proven net flow sent hourly to ZENDEX testnet as private swaps through its relayer; a first hub with 136+ proven epochs per strategy since 30 September; attacks refused on chain and in 32 tests against real proofs | this repository, `deployment/verify-bytecode.py`, `deployment/read-state.sh`, the live page |
+| **M1, the hard part** | strategist SDK with encrypted order handoff, the bond answering for withheld orders; two or more outside strategists running their own vaults; fills allocated back per vault at the batch's execution price; Base execution for ETH; incubation tiers; ERC-7540 interface on the vaults; a public attack suite covering every guard, mined on chain | public repository, source-verified contracts, keyless state reader, transaction hashes |
 | **M2, audit** | contracts and Noir circuits audited by a Foundation-approved auditor; fixes; public report | the report |
 | **M3, mainnet usage** | mainnet launch tied to ZENDEX mainnet, or a fixed date with Base execution if ZENDEX is not live; three months measured on the RFP's metrics: execution volume routed, active strategies with external depositors, unique depositors, total deposited, fee revenue | on-chain figures |
 
 ## Known limits
 
-- v1 netting operator sees orders (closed in v2 by Vela).
+- v1 netting operator sees orders (closed in v2 by Vela). Today it runs the three vaults itself.
+- Testnet custody: books are valued at exchange prices and deposits are held by the hub as tUSDC; only the net flow trades for real, on ZENDEX at 1/100 scale. At mainnet the book's positions are the assets the net orders buy.
+- A vault that commits and withholds its orders blocks the netting proof for that epoch; the SDK ties order handoff to the bond.
 - Epoch-based, so medium-frequency strategies, not high-frequency trading.
 - The starting asset set is what bridges to Horizen: USDC, ETH, BTC, ZEN.
 - The pool total is public; a minimum number of active strategies per pool keeps it from describing a single one.

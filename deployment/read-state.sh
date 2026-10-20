@@ -43,3 +43,26 @@ print(f'  epoch $LAST, {n} strategies netted, orders: private')
 for a in (1, 2, 3):
     print(f'      {names[a]}: to market {side(a)}, crossed inside the batch {crossed[a]/1e6:,.6f}')
 "
+
+# ---- v2: vaults with depositors
+VH=$(python3 -c "import json;print(json.load(open('testnet-v2.json'))['vault_hub'])")
+v() { cast call "$VH" "$@" --rpc-url "$RPC" | awk '{print $1}'; }
+echo
+echo "VaultHub $VH (vaults with depositors)"
+echo "  current epoch $(v 'currentEpoch()(uint64)'), outside deposits open after $(v 'SANDBOX_EPOCHS()(uint64)') proven epochs"
+VN=$(v 'strategyCount()(uint256)')
+for ((i = 0; i < VN; i++)); do
+  CAP=$(v 'capacity(uint256)(uint64)' "$i")
+  cast call "$VH" 'strategy(uint256)((address,uint8,uint64,uint64,bytes32,uint64,bool,bool,uint64,uint64,uint64,uint64,uint64,uint64,uint32,uint256,string))' "$i" --rpc-url "$RPC" \
+  | python3 -c "
+import sys, re
+t = re.sub(r'\[[0-9.]+e[0-9]+\]', '', sys.stdin.read().strip()[1:-1])
+f = [x.strip() for x in t.split(', ')]
+owner, mask, cap, dd_lim, book, last, started, frozen, nav, shares, price, hwm, peak, dd, n, bond = f[:16]
+name = ', '.join(f[16:]).strip(chr(34))
+assets = [a for a, b in zip(['ETH','BTC','ZEN'], [2,4,8]) if int(mask) & b]
+state = 'frozen' if frozen == 'true' else ('open' if int(n) >= 20 else f'sandbox {n}/20')
+print(f'  [{$i}] {name} ({state}): share price {int(price)/1e6:.6f} tUSDC, return {(int(price)/1e6-1)*100:+.3f}%, max drawdown {int(dd)/100:.2f}%, {n} epochs proven')
+print(f'      {int(nav)/1e6:,.2f} tUSDC managed of {$CAP/1e6:,.0f} its bond of {int(bond)/1e18} ZEN allows | mandate {\"/\".join(assets)}, max {int(cap)/100:.0f}% each | holdings: private')
+"
+done
