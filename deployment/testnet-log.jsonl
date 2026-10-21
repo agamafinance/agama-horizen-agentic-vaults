@@ -7039,3 +7039,225 @@
 {"what": "mean-reversion settle e9734", "tx": "0x54d4c4636ff085affa1e001ecf7a09acc1413d823872ffdf308f507c39aae7da", "status": "0x1", "gas": 2070579}
 {"what": "momentum commit e9735", "tx": "0x13637350035de7a7cafcfa6f3423939afc68412ce749bc961a6031a43793cdaf", "status": "0x1", "gas": 51304}
 {"what": "mean-reversion commit e9735", "tx": "0x92c610999d8a57e86d6234c6d5984e90cd4d8df09de7ce4ea5f5409f93894373", "status": "0x1", "gas": 51328}
+{"what": "prices e9735", "tx": "0xcc3a17e539c128d4689ec09dbab16e8aa6b0feb3d3694a22ea2fb2138e3747df", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9735", "tx": "0x91cf4274637f2364f0b571da36e4e8bb8b1b6421f3b3b2262e1e861701385207", "status": "0x1", "gas": 2167878}
+{"what": "momentum settle e9735", "tx": "0x9ca75025cb97c783a151661b2131a5db59b1a4f00d44183520c8f0de40f419f6", "status": "0x1", "gas": 2070483}
+{"what": "mean-reversion settle e9735", "tx": "0xdd98acf743ad10aa5c0663e93c803f60eb5de4a2d0a032e588765bf6b734d568", "status": "0x1", "gas": 2070375}
+{"what": "momentum commit e9736", "tx": "0x0dcb1a83aca70ec30c8a4c6ac0553dc38f5078074aeefe26f908bae003a0d92c", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9736", "tx": "0x899a403ce53820ec236ef81d09c5ba5276bdd8983d692a8baa7c6323ad6ace9d", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9738", "tx": "0x4a7403e20f71b6c635bcbeb132b5c847ef60f38d5f137cc719847db2c044838b", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9738", "tx": "0xab66a1cd801e75478d9255fcbd095d3ca26cd2a890a47b754c0e5ca9d7b287c8", "status": "0x1", "gas": 51328}
+{"what": "prices e9738", "tx": "0xbd6c76703b7a6f25345eec861f29bd1240ed986808a718a4d1e2720fbc0e4827", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9738", "tx": "0x4d1eebc857f67ae9537b8c0f36568437086bf07fe1fcda655700a816482ac32e", "status": "0x1", "gas": 2167806}
+{"what": "momentum settle e9738", "tx": "0x0dddc7d16e405767bd9dfbbf953ef2b7507492c6b1e648ea22fad79a14d0a265", "status": "0x1", "gas": 2070351}
+{"what": "mean-reversion settle e9738", "tx": "0x5d9a3e01181bfc4c8916cab18ffd622575d43769adb75103cb3156790bd701d8", "status": "0x1", "gas": 2070459}
+{"what": "momentum commit e9739", "tx": "0xd83137b4da432190668d482d1031b8f5ba7ad2d3d89cb21cbc7dbfaf2fe03e89", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9739", "tx": "0xde87f87c5ebbb7142a4523dcacd70e0aa8aa8a1777ef872159e06da77ca7f548", "status": "0x1", "gas": 51328}
+{"what": "prices e9739", "tx": "0x476956951dcac8ff6a1f1dc8052e2d6f6f7f526e89a8327d31c53d2c27876ec4", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9739", "tx": "0x59dda55649baf7ab9af675124a6f410054e15bb2c7638de11b0c3df0c4f00b34", "status": "0x1", "gas": 2167866}
+{"what": "momentum settle e9739", "tx": "0x36f3b407bf724c8c629916d3be0ee98290e0a3bef6bdc5308a1decff35636cbd", "status": "0x1", "gas": 2070423}
+{"what": "mean-reversion settle e9739", "tx": "0x672c1622a9d232f35042929456064e2501ac0389e037b5d29388f57ad684a7c3", "status": "0x1", "gas": 2070459}
+{"what": "momentum commit e9740", "tx": "0x0aa97ac0e57e0332b571c88b15a5b673982abd67eab1acbba393c142c355fdbd", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9740", "tx": "0xe1f13f6ca99fd821c6df0d4f7cb4a0d50fba12abf8657d64179a10243edf3529", "status": "0x1", "gas": 51328}
+{"what": "prices e9740", "tx": "0xe4b315158b1a6daad7583f893be1d226044f9db07a179983a7eff319987072ca", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9740", "tx": "0xff744b860a523bd5a7de0d7c7ff3e901f3b08b513c5d95682a42465b3155725d", "status": "0x1", "gas": 2167866}
+{"what": "momentum settle e9740", "tx": "0x31dff579e2f0706c84a50aab99ef4b112bf15a6925b3d2855e836f7628a00707", "status": "0x1", "gas": 2070531}
+{"what": "mean-reversion settle e9740", "tx": "0x95c4e81082590e1caff2351638df9920b17a3449847c7d1b0b8c07512c30d471", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e9741", "tx": "0x9b8672501cebf012dfee6644e08885803d86d380ac4d1bea58eb1d69c25f5fba", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9741", "tx": "0x9a9846a7aaf41110d362a4bd8ab31275212472791bd56559a5a854a2b931be86", "status": "0x1", "gas": 51328}
+{"what": "prices e9741", "tx": "0x0dc975efb4f4bec97406cb73b4588fc1fbaf9194560c930f6cf5e43e257c30f4", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9741", "tx": "0x4438fa1824fc7124bb8b2fd3b1bb34be75bcbe70b763c1b77296fbba7bee29da", "status": "0x1", "gas": 2167974}
+{"what": "momentum settle e9741", "tx": "0x59a5ccdf0a60ec8a5d4cfdc2af3c2a6b2a6fc947c6d83f28429b743abd3cad89", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e9743", "tx": "0xd9bd9caf400b7c4f6af8ab9d38e8f79672f0f077af5938b4506c18d37abfc8a6", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9743", "tx": "0x80ae73172eeb5d4d53ec0c190b785951f15a0be5c2ecbe81b16c091d1884514e", "status": "0x1", "gas": 51328}
+{"what": "prices e9743", "tx": "0x635b4b7134e00ecc37824b2689c71c941ed198ac00b6da38e5acc262af21bf10", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9743", "tx": "0xdc88b3954a9f67d123bb741658272fc416859d607c2dd73428ef86bb5b2e361c", "status": "0x1", "gas": 2167914}
+{"what": "momentum settle e9743", "tx": "0x37b6c469d352fcf6bec59dfba24bbdd7aae21a648b7d78ddc4b02059ad44211f", "status": "0x1", "gas": 2070567}
+{"what": "mean-reversion settle e9743", "tx": "0xb561ac0d913786da9eff2e79aea7d68482ddbe897d66e3ce86a21382ba8e96ce", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e9744", "tx": "0x63a7d26f3698b79f81fce8101deaf8990f2f1a52696c3e33ed95410584c20e28", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9744", "tx": "0x0096c68ae7b05506b2222ac4bb2fa9e19c86b866eace658d58fc8265ec3082be", "status": "0x1", "gas": 51328}
+{"what": "prices e9744", "tx": "0x0f4e4fa5b60f51d77216968d0c41d7e33c3c2a5d872e32cddd3a1f32e910aea4", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9744", "tx": "0x566b3161dd3aa46da1d27416fe2a7aebf604fb8882ddd94cd8c9ef14b57f6cc7", "status": "0x1", "gas": 2167662}
+{"what": "momentum settle e9744", "tx": "0x3cfa4a2c6ca495d6aa2ff85b0c0f617b616541ff735a46cf8595b72278b7ef0e", "status": "0x1", "gas": 2070483}
+{"what": "mean-reversion settle e9744", "tx": "0x1c4ca3c4812ca8ae33bdbc72f5ea9183d1cbc58ccf8cb17207381ed6d63204f2", "status": "0x1", "gas": 2070591}
+{"what": "momentum commit e9745", "tx": "0x6acb1c1b1b5cf68ec9df8253b6ffb0447b8574f928d5bda59f422db418c8dc42", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9745", "tx": "0x5c1d73c06aeacb0b7cde1063ac08c83bc53a11cbf0c64aaf25ce94dc9671f3eb", "status": "0x1", "gas": 51328}
+{"what": "prices e9745", "tx": "0x2abe68a1e5d90c304e649c4dcc7aff4eab070f7a9d33398465818fa29bac8dc4", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9745", "tx": "0x4642d7b2417c46d18f5a17f19d307b3ce889cbcf1b7ccb6b9f0c61560aabb49b", "status": "0x1", "gas": 2147906}
+{"what": "momentum settle e9745", "tx": "0xae8ed42963eb91ea9c1bd57eaa822004ebc3ba6b9f432d151311dc47e725dbd7", "status": "0x1", "gas": 2070543}
+{"what": "mean-reversion settle e9745", "tx": "0x36c95e5825d667cb7654810454f34b9a05cbe632cde94f0d235275bcf5877d41", "status": "0x1", "gas": 2070603}
+{"what": "momentum commit e9746", "tx": "0x80103db208ffe7a70a988dfceacf9a453e698198ede83ab4ca771f55dccda85c", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9746", "tx": "0xeb8dbd6a46708fd348051be3bf910de05497692dc3db4f730d846afabda737d9", "status": "0x1", "gas": 51328}
+{"what": "prices e9746", "tx": "0xc89d4a031ac4389fb9ddce42f0522bdd80302aee89e73712a510ee36812c8898", "status": "0x1", "gas": 73251}
+{"what": "momentum settle e9746", "tx": "0x35803d73d08761d58ae2d41bcb8ad69808d870030add8690b278fbf02310f767", "status": "0x1", "gas": 2070363}
+{"what": "mean-reversion settle e9746", "tx": "0x780ee0b2f0657577860a0e6e8d142490347105b499f7f954f15095ddd57423ac", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e9748", "tx": "0x4dbd606ee61eb2ed81a6a8d9c91f4a44150f03f856b867aaa6a2dce13f011eb1", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9748", "tx": "0x52be3fe55a9d4ab1c25d1c366c04dbc086ef277e615566f14b64d9c1783a07fe", "status": "0x1", "gas": 51328}
+{"what": "prices e9748", "tx": "0x6178fdb390ea2b9529a6b8ae94ed640d72cc31b3d6ee06601d9dda5218d25a35", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9748", "tx": "0xfcc8dbee20454843bf6d00982a8e44fa16dd9368c309a171e9106c16ecf14aad", "status": "0x1", "gas": 2147906}
+{"what": "momentum settle e9748", "tx": "0x1c5f332a8671ff5a06249d2f008e752fab3e161a8419fe45f02ee4258af5b408", "status": "0x1", "gas": 2070543}
+{"what": "mean-reversion settle e9748", "tx": "0x06027ecac2e6ebb60cb1857ef835203f741b1d28908a861d172c2eec6d9a3d9d", "status": "0x1", "gas": 2070579}
+{"what": "momentum commit e9749", "tx": "0x42f104fb155469a4f815d0d7371596f7740e1ffa985a9ee8a4987beaaaf42b55", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9749", "tx": "0x6676eeed4b03110f76a09cd50228e9cba898783cb2dd976b121f0c85d2c37254", "status": "0x1", "gas": 51328}
+{"what": "prices e9749", "tx": "0xeea62a4ea94668f447480dfc696ec24ae4b20fed7f917f3174f4b2f7a362104c", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9749", "tx": "0x0229914f7c2a565d8bd3a4ef21041f0f073c3ae4c6cb52a3a91b756c1063a157", "status": "0x1", "gas": 2167830}
+{"what": "momentum settle e9749", "tx": "0x28a52c2a00d423479768aacb0b345008bfa7b593f44729b509aec96819306f3e", "status": "0x1", "gas": 2070447}
+{"what": "mean-reversion settle e9749", "tx": "0x86b769c000193a9c4bb16990f1d424427ba0b8776c78ef71b070db9326096a72", "status": "0x1", "gas": 2070363}
+{"what": "momentum commit e9750", "tx": "0x1c5c6d078058bdd3c5ba2108089149b0985f5b99de14c74fe0bd3bc8b2ad3337", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9750", "tx": "0xa82a882ccccb465fed37e7405697674112c52800950ca0727cef9159415804f9", "status": "0x1", "gas": 51328}
+{"what": "prices e9750", "tx": "0x56afe50290b6f25c337fc3e49fabf62d0dd5b4314e61c74499a9aa9fc16bede8", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9750", "tx": "0xed524f4fd3f1c4c4a95fb7d91718c16c5dad60592499fd1e29ee2a91b1a4a0fc", "status": "0x1", "gas": 2167938}
+{"what": "momentum settle e9750", "tx": "0xced11edec81038154b27994baecce76d31edc8dd2cfbf683dfeb901d5f786e46", "status": "0x1", "gas": 2070459}
+{"what": "mean-reversion settle e9750", "tx": "0xa30fd9afbd4209d6a9b9deb072f6f5265822e632537d9b1e46c876514c37fbbd", "status": "0x1", "gas": 2070555}
+{"what": "momentum commit e9751", "tx": "0x65256a42ac039cb5485c30084ed245c14717fba025ba72c444aaf19d55e88e62", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9751", "tx": "0x7dc1e53f5a03eaa213a3e68b27b7b16f7553e117056d1263cacdbd392af7d136", "status": "0x1", "gas": 51328}
+{"what": "prices e9751", "tx": "0x4e91bddb0374194ff4cb2c2dc2e4f25f1344390747749a912350e8b9177a2701", "status": "0x1", "gas": 73251}
+{"what": "momentum settle e9751", "tx": "0xb7650694d7ba142eb946cf47c075aaf8c6b60fff4f1df9c440dffd4982f7c5fe", "status": "0x1", "gas": 2070447}
+{"what": "mean-reversion settle e9751", "tx": "0xf5b79cfdf5cf112b26e42b8bae3fca104b2f68de5b21365dfff6f8f299ef056a", "status": "0x1", "gas": 2070531}
+{"what": "momentum commit e9753", "tx": "0x3fe1ac05ec8000fbf97e84168910648a314ffc800c6414a286771e3b3202aeb8", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9753", "tx": "0x872cae23c24c60e0a404ced2e52b4f65ccd14e2636c99c140836628f31e5a961", "status": "0x1", "gas": 51328}
+{"what": "prices e9753", "tx": "0xbbf49774bc5be7e6401b1abd43fd894cc579071df30017535db61ebb44d2f3b1", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9753", "tx": "0xc21b2337fc9ad31b0a87fe582df84432443d63dcf84d5c6b06253ec97e61e197", "status": "0x1", "gas": 2148098}
+{"what": "momentum settle e9753", "tx": "0x08d02a16cfea1fc7ef92bd06b2ff1a6dcc94536abb475c6a60769058ebe34cf1", "status": "0x1", "gas": 2070495}
+{"what": "mean-reversion settle e9753", "tx": "0x3793bf2ba123f81f90a147f12376abd16cc7437c3ed73a688a0c4cb7e2068906", "status": "0x1", "gas": 2070555}
+{"what": "momentum commit e9754", "tx": "0xfbea04d094f8a511287398764eb418f0c0e88ba44f7520c1deab52e93b028ec3", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9754", "tx": "0xd274c6f0635f853b1323e2647a4b3c9b604f390a3625a1bd7f727659722027f8", "status": "0x1", "gas": 51328}
+{"what": "prices e9754", "tx": "0x6827a490a3040cb1bcf922a95ec05641acf859ed25fd94d79519edb6dd2bfe20", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9754", "tx": "0x4267b0ccbc66356f5deb6143d834f775445a0dc73160e2dc897544102500c386", "status": "0x1", "gas": 2147942}
+{"what": "momentum settle e9754", "tx": "0x29113b003bfd79ec2eee852a5238173e23afaf6bb3f6d073446a549f659156da", "status": "0x1", "gas": 2070435}
+{"what": "mean-reversion settle e9754", "tx": "0x48ef973422eee160f545b9487568d577bc0d8c292154249a8a116f59cf36a02f", "status": "0x1", "gas": 2070531}
+{"what": "momentum commit e9755", "tx": "0x88a6859b93fd7fe8087cbac7bf147cf29c242b155813a4a667f0a34ab05ef354", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e9755", "tx": "0xf2293e03d284e135c58a782e3e403ca31dfe09b17f3963bb2b06f0b20c1e6db9", "status": "0x1", "gas": 51328}
+{"what": "prices e9755", "tx": "0xe8ba00a0ca770cfb15aadc2c6ea0ceafa1d2d9b2c4b7799b4618e44f5be3fb57", "status": "0x1", "gas": 73239}
+{"what": "netting proof e9755", "tx": "0xe6b06a5e1740cc984a93d3d2193be0be331516d3cf39a316a28a350eb3adca80", "status": "0x1", "gas": 2167794}
+{"what": "momentum settle e9755", "tx": "0x0c5819ad6a666bc0a0e98228814e766de36211365511d8483ac3f63a59f2cb80", "status": "0x1", "gas": 2070471}
+{"what": "mean-reversion settle e9755", "tx": "0xd02cdc7992c5e4e9f2c27a7f87f8da1497c579bd8f3ebe21cadda9f07e2639f2", "status": "0x1", "gas": 2070567}
+{"what": "momentum commit e9756", "tx": "0x157c9db6a01badd50691e8cb3dcf12e5308a7a2a759553342d391cdc59d9d5f3", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9756", "tx": "0x8d026c7f40039dabb07768b85b32dcb4728d248d8267b89c874dad8e461f8eff", "status": "0x1", "gas": 51316}
+{"what": "prices e9756", "tx": "0x8c70cab44589a68446281a01f0ccfb08ae7ed5be0dd68ce3c1b2e67b231ce594", "status": "0x1", "gas": 73251}
+{"what": "momentum settle e9756", "tx": "0x002e0f2b8fbe1bef7c6de912091de397e87dd73f8c531747e55752314c91cb58", "status": "0x1", "gas": 2070555}
+{"what": "mean-reversion settle e9756", "tx": "0x4f34f22ec1efd1403c5329a747106bc51f37a0f61e697508355ea5a2a6eb8f71", "status": "0x1", "gas": 2070507}
+{"what": "momentum commit e9758", "tx": "0x8d669d8dd44d127dad228f1eb430415dd88924e8b714d67f374b20813c059421", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9758", "tx": "0x92fe0d002d9671163162f9031994d7f38c1e7ce0412e6141b1c2a6eedeeecf1c", "status": "0x1", "gas": 51328}
+{"what": "prices e9758", "tx": "0x12065fafece63763bd745211b1baf3e8eafaf67b6d9b4016049a2e6c7697a190", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9758", "tx": "0x93add294ea5df12dfe17b2f648143511fe1675e00ddbea14b33d0515ac9e50a6", "status": "0x1", "gas": 2148074}
+{"what": "momentum settle e9758", "tx": "0x415d411c0471f51fec70a390d1002a61b1c00d17ae63033239201272be3eea95", "status": "0x1", "gas": 2070519}
+{"what": "mean-reversion settle e9758", "tx": "0x9b96ebd5063bc08f58d71c3bc53ab534728fe6609b5c96bb742851e8fe9c0c70", "status": "0x1", "gas": 2070627}
+{"what": "momentum commit e9759", "tx": "0x46697b5fdd8d3c78b5da6ad8e3009a35144dcea1624090f059f5de7c6ab421f0", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9759", "tx": "0x20200b9441cd8c8007515b2efd7f68fdd5aec759d549ea2b3a940c27a311598c", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9763", "tx": "0xc069acc5372ccf9fdbd38f0a12f570523009071454be88e97eebb52847e669fe", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9763", "tx": "0x7b513c2c3b464ade928fbb535ab4f6aa48aceeeab4e81c653602775b9b7ec3ce", "status": "0x1", "gas": 51328}
+{"what": "prices e9763", "tx": "0xb82292acc3e5698ce6966c776dd44b06fde4272a11180aea073e3fc31516634e", "status": "0x1", "gas": 73251}
+{"what": "netting proof e9763", "tx": "0xc89b4ffaa0a1d906ccdb5a833118532136851ab1af8127e668d55ea86e1d766e", "status": "0x1", "gas": 2167926}
+{"what": "momentum settle e9763", "tx": "0xddf7270c2f303c9696ec72542be4880c84f40d0930a7e836def09c37b943fed8", "status": "0x1", "gas": 2070531}
+{"what": "mean-reversion settle e9763", "tx": "0x0399ed4b64643a9e8095a23db16bf889cf4f060eee418fd152909db108185468", "status": "0x1", "gas": 2070567}
+{"what": "momentum commit e9764", "tx": "0xc3017474171dd2cf370ca38b35b0c68a3794e9bbd543e7b8e5cc70669c872cb9", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e9764", "tx": "0x80fec239f280e47f3f9b27ede654248c31eb19fa26c7cba82ffc7dadbaf76e6e", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9894", "tx": "0x4f2540f8858e8321d6e653307213d9c31037291e56ff97b5368a2ccc4421da88", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e9894", "tx": "0xff3efa4b617a19631395d460be28de90a4af0481fd23492da5f66655895b4810", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9898", "tx": "0xa22d41b0e753388cbf4d0073123c24e20b0918418b371f56c5f5cd4b76714af7", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9898", "tx": "0x182763237ecef45a661b40a0e832ae3d8085c0a1fc2a9bc1c48f2d102e1a9ee7", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9920", "tx": "0x485fb28ba89eee081806a92f7cd53fe5eb653d3bb861c547d9d4c010f42f7707", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e9920", "tx": "0x7a7a4bbb105dab381c61897296a5378abf9acc90bf6cf72b5f72163f4a00c1fe", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e9944", "tx": "0x1901d5ab9b199c65d613b157554671a4c709eeb9a838e0d8cceefb697e5fb2d7", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e9944", "tx": "0x52f392d19af633e16ab17d95fb8b96bafd851a5c154e558d4a56e32abcc20b76", "status": "0x1", "gas": 51316}
+{"what": "momentum commit e10052", "tx": "0x0ddbcf0651e20b95a9fe5499a9569f0e5048ed6dbc5b52073c6523aed02113d8", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10052", "tx": "0x21c448a42ee06f208c8cb0cb10cf7cecd3800a241275d682d286e1e5e1253df8", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10063", "tx": "0x7c6805d3046e72ed9f1c785cce5bed6c64135b64c1cb4d98152a991dcb1f8368", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e10063", "tx": "0x1f0d9f0671cf703226665634defbb57f60984290d4b37ddbf350e3b915917a6f", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10085", "tx": "0x6c2a94a0089e8057bb201ea963df0c36bb1f1af6e22667adcf4fdd41ff3db358", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e10085", "tx": "0xc038a5cc12cdd3729be55a2c5f40a5dd09304fb67773208e3c9666e5de9db7eb", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10094", "tx": "0x1693d483af902bfa4b7a3454e627804f9d17bb0443c9f9dc1abadb03bc613379", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10094", "tx": "0x68bc2f06f9d798f14e209594a5d0dafeaaf8f1bbdf073e285bef95853eb7686e", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10102", "tx": "0x4478579d7a4f4df7450768fb5961b4be91fda20d743654c980a649de071aeb80", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10102", "tx": "0xf23cbccdb630c1a417d0d959f6d675bf47f5787041586358e13faee785604597", "status": "0x1", "gas": 51316}
+{"what": "momentum commit e10127", "tx": "0x7ba04264294500227257c8840aa429373e803d63a44c95ab3be51eff5b4ac3c4", "status": "0x1", "gas": 51316}
+{"what": "momentum commit e10133", "tx": "0x54329facba3baa478fa8478870127bb87e6f4961922506051b12f9fe9fb7a447", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10133", "tx": "0x265abcc633cd9eb1e673431d1ef1bc63ee1582b854dc27d3624a48d6cb6724dd", "status": "0x1", "gas": 51328}
+{"what": "prices e10133", "tx": "0x52fa13c86096857404477400155bdc5d5477f278bfeea02fc807145091f055b9", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10133", "tx": "0xb9801094c4317560ed75e9f3393f1f6948be9fe3f4ec9d9c086d82cc6e7bf639", "status": "0x1", "gas": 2148002}
+{"what": "momentum settle e10133", "tx": "0x24cfc26a94d94eb3bc7e1cd9766958476f8d159134270fd9b5af22945e2cb239", "status": "0x1", "gas": 2070727}
+{"what": "mean-reversion settle e10133", "tx": "0x7366d9f5d880896fd21fe813a620cc5beab39314f88640fe8c2bc43983d7ebe1", "status": "0x1", "gas": 2070567}
+{"what": "momentum commit e10134", "tx": "0x4acc404a837dfd6f757ab5a65a3056c616067bac7b3e0c6938803718e0557eca", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10134", "tx": "0x150e6a0499fe60206a3b7cc9465de74ede2d1c71cb9f52919f0fe296853e3ce9", "status": "0x1", "gas": 51328}
+{"what": "prices e10134", "tx": "0x678bb8b0ae3e36dbb1a239aff10755ea0f2fa4326b10cf3d1b8964088a352abc", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10134", "tx": "0x2e000a90cbdfc21ee9079c1ec036cb9bc90c6ae3d335ab4a813990af20d172c9", "status": "0x1", "gas": 2167866}
+{"what": "momentum settle e10134", "tx": "0xaa25bee0c62d92bd43d97de7c61c0597b321f92103704ddfc876091a9d30116b", "status": "0x1", "gas": 2070667}
+{"what": "mean-reversion settle e10134", "tx": "0xd0a57aa27a0e1a371ccaad53bf618aacad17fd52ec7bd75ff3f30cc32b9366f3", "status": "0x1", "gas": 2070459}
+{"what": "momentum commit e10135", "tx": "0x843f104a7ccc4bc4b774f9d5c0423858607559d8cc9c6f324d3230fad22f0356", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10135", "tx": "0xa50c27b9d6ed8ac0024643d23b95540723562a303d4213c6551363dc638d0509", "status": "0x1", "gas": 51328}
+{"what": "prices e10135", "tx": "0xc38bd4a1061054c8c8474ad980c12bdf7e3ba6cc2d0a6b217fb0b7b588016ffe", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10135", "tx": "0xe55c665ddaa104edeb350efde77ee47f1a1215e057c6e52e66f41bb4dd4ff39d", "status": "0x1", "gas": 2167818}
+{"what": "momentum settle e10135", "tx": "0x7b31762e2ec52a90e11dd357ab877251ec251c11f0030580bdab8ac35d701941", "status": "0x1", "gas": 2070751}
+{"what": "momentum commit e10138", "tx": "0xd7c72c11be44215dcf4da90eab70b33162d43b6225f222900e06e32c5d39446b", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10138", "tx": "0x56103c402268174ae26c4f46a1ce6b0f10ecfdcbfc0cb5265ce813eaa2e339b3", "status": "0x1", "gas": 51328}
+{"what": "prices e10138", "tx": "0x0530322d32a9526b29b3dedcd30dca03ad31723d9c2650827e9c8f65739b1040", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10138", "tx": "0x5e54f9e0dbfb0f90a41ec6a97f4a2c8ddb66c7287a4fc6d1f8c7cc9a5a10d6ad", "status": "0x1", "gas": 2167878}
+{"what": "momentum settle e10138", "tx": "0x83f81bc9c3907e40c5123b734dff49e0b571630e260e6a65200d5867aefc19ca", "status": "0x1", "gas": 2070751}
+{"what": "mean-reversion settle e10138", "tx": "0x1cd0f0b8141335e4274df06a33fac8189ffbe570b18ebfb5988525067575131b", "status": "0x1", "gas": 2070495}
+{"what": "momentum commit e10139", "tx": "0x03049cbe3041a142aa562e8f33eb7a61425af5d171e6fc440989173b7577fcad", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e10139", "tx": "0x8618e0ed50edcbab174d5437be15c83437901b45b6b6baf0d238f161fda57e71", "status": "0x1", "gas": 51316}
+{"what": "prices e10139", "tx": "0x2c879a9b980b9bf408f5111c28e6e58f7a7b9df33e831fc30456473512205449", "status": "0x1", "gas": 73227}
+{"what": "netting proof e10139", "tx": "0x7624c36c1af648e9934785740d5cfca14c1891705c53b9098afb3cc3b22388c1", "status": "0x1", "gas": 2127970}
+{"what": "momentum settle e10139", "tx": "0x1018c8940ac9003b0c4b25053667fe01cbe099818953b928dc7408ea285a8b9a", "status": "0x1", "gas": 2070459}
+{"what": "mean-reversion settle e10139", "tx": "0xef863351449ebabe65bc704c2584cafc6a0769fdeea01fc8e73b5d11ff6f2107", "status": "0x1", "gas": 2070591}
+{"what": "momentum commit e10140", "tx": "0xa31f05f625176b95146dcfb47339b1d23771d553a31692de3b5c946735115084", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10140", "tx": "0x34b44ef634eb75b0750b1478414574a64a9e2735fcdcdf4d098837359ec7f856", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10143", "tx": "0x14215b0b5a61df1a6d16518891ec05fbf0c7993b77477ae32891966d6d6639c7", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10143", "tx": "0x99d7fca8e1c0a3adb1d68ff31c52a953c3eef99a0806deb46d4d855d57c4be26", "status": "0x1", "gas": 51328}
+{"what": "prices e10143", "tx": "0xeb69a24581ed0149433f8a27fc8cc095dc2f70b8b7c6ba472603ee2fd2c38dd1", "status": "0x1", "gas": 73239}
+{"what": "netting proof e10143", "tx": "0x466a3843165c19a0fa907fb6d96424a1273ef9f3dd570ca85a1cabe01d6793b9", "status": "0x1", "gas": 2127946}
+{"what": "momentum settle e10143", "tx": "0x1a01fdbf7e06dcba00ce503ad33c505d6366e1f6371c4fad876036716942efb4", "status": "0x1", "gas": 2070459}
+{"what": "mean-reversion settle e10143", "tx": "0x8ce115224105417a591c64642643f276c2b796a2376292653bfb260df740b9d8", "status": "0x1", "gas": 2070543}
+{"what": "momentum commit e10144", "tx": "0xf074ee0269b666a9f96431ef6100f1463c73822b4920363eba0aa2c47a0b807e", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10144", "tx": "0xa5531030a244b105245d0e51d5ef87472771b307149a1659090b955f8eda5024", "status": "0x1", "gas": 51328}
+{"what": "prices e10144", "tx": "0xa97a4b08efa0bb1882064a38c3fd583edb441efc9e3e87a77cf8f1ce65c239c7", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10144", "tx": "0xe49bf34a346e33c3d73d118f20df2c7557ea26debbbb9e9de033be2ae9e88de5", "status": "0x1", "gas": 2168034}
+{"what": "momentum settle e10144", "tx": "0x141d09f03f29304125092951f3adeeacd71c8c0bbf004c19f5c7a7998a1f97d8", "status": "0x1", "gas": 2070555}
+{"what": "mean-reversion settle e10144", "tx": "0x8113dd373feb57358d9d5b33559024bbb21f3940215ae05db9d9640da3b78f28", "status": "0x1", "gas": 2070411}
+{"what": "momentum commit e10145", "tx": "0x5cda125ff47ad72f488343ee696596617a9788e0437d4378e23f7389ac142247", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10145", "tx": "0xbbba6028823509ec9d6b7be78de6a48771bf894c27a915626312556112c336b2", "status": "0x1", "gas": 51328}
+{"what": "prices e10145", "tx": "0xe437897a857372024e3f78495069c0413e51f5f9c3d026f145fb5e1a1ac5de8e", "status": "0x1", "gas": 73239}
+{"what": "netting proof e10145", "tx": "0x80eac2f661ebf5e4f7ffad852c53ac435c722143f5cb582236cef35b8995be94", "status": "0x1", "gas": 2148002}
+{"what": "momentum settle e10145", "tx": "0x877037ef7ca21f848fe7e68fce505c9a1064e461b242311abfa3078db5e659eb", "status": "0x1", "gas": 2070471}
+{"what": "mean-reversion settle e10145", "tx": "0xddbb5576c40beac799dcedfecbfc759199ee717c147b0f9f1e915887ff82be36", "status": "0x1", "gas": 2070471}
+{"what": "momentum commit e10146", "tx": "0xbd4d16ac42d7ed4b412e5751e1834c832da7ace01cfdc814b35630bf3507bb62", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10146", "tx": "0xec865bd35428f76ba6a20140d78e9d13a3bea4f7b619c73a4cee16a74eed9391", "status": "0x1", "gas": 51328}
+{"what": "momentum commit e10148", "tx": "0x88ad77b4254655c2994956aaafa1015b10bacc9dd07011acac76c97cb8ba1b03", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e10148", "tx": "0x91ad4592afeca4bbfd15fc783d7419488ce23387267f56299924a0a68cea4459", "status": "0x1", "gas": 51316}
+{"what": "prices e10148", "tx": "0xfbdf428c1e638d31151cb10cd485771ef398c79b328ed7bbe37fdc724d71a0eb", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10148", "tx": "0x8e468b70348fbc9403f52065f94c52ab968251c34ad0a4fcd0cf402d0c2cf37e", "status": "0x1", "gas": 2167938}
+{"what": "momentum settle e10148", "tx": "0xd73a7b5574143904ad29664d18ee92d5233a88289457c98b1add890b43c28019", "status": "0x1", "gas": 2070459}
+{"what": "mean-reversion settle e10148", "tx": "0x36122127c60640ecbe4292496004f9389e1ff604233f72974578e458ef2a8043", "status": "0x1", "gas": 2070567}
+{"what": "momentum commit e10149", "tx": "0xf4e391145ebafdac2d98b43b9ef9d2b1c25158d75e6a11f1bd47ba874c22a11a", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10149", "tx": "0xb7e530c53397df923ce7c911d77f868e5dda7ba32746e5d6cefc7d6ebcc0eef1", "status": "0x1", "gas": 51328}
+{"what": "prices e10149", "tx": "0xd240a03c4be331df1ddaf1e54a260c9882f7a89230e4d9ca4f844ef6b8e7d8ea", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10149", "tx": "0xab24d47dea3e5a7a729d5afc88b8f7e9e9e1e199ba2a6be23741f15e03400a83", "status": "0x1", "gas": 2128006}
+{"what": "momentum settle e10149", "tx": "0x7d38193d8dde721cdd277b5dfa98078cdb19fc1ebe27e9b419a0552a9861064c", "status": "0x1", "gas": 2070543}
+{"what": "mean-reversion settle e10149", "tx": "0x3a1b587dfeac3004257052beda0133810b3f7bc13c12255e7d81515e807b6b3d", "status": "0x1", "gas": 2070495}
+{"what": "momentum commit e10150", "tx": "0xbf0f1b49a9c31d7b18176fcdcdcf11ae1b5f052d1b078ed7d3b65d99ed6bf279", "status": "0x1", "gas": 51304}
+{"what": "mean-reversion commit e10150", "tx": "0xade63f9fe170032179ff2c9ff30b175dbc9c5e64cb8946d9a145aa644d5e679d", "status": "0x1", "gas": 51328}
+{"what": "prices e10150", "tx": "0xaad803f6e486f9f39c72b30c986d1ee988ba955b734a8a9a8adcb96f8df5d57b", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10150", "tx": "0xd44c31db884df7aed7cb0260b6e5944a6c31780479060ad573eb9ee0665d8d4d", "status": "0x1", "gas": 2148002}
+{"what": "momentum settle e10150", "tx": "0xd008221464bc7c3f26bba110c642a6f1387e871f7d78e61ade6b4e8e06eb9a7f", "status": "0x1", "gas": 2070387}
+{"what": "mean-reversion settle e10150", "tx": "0x1085ad6b5d66ea431a8c2476444b314944f2406add5b3fec6823b511623d128f", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e10151", "tx": "0x5ad8da0bbbcfe941d32df1824e5e7b6cdeb20d9f50cfaf580aedcb01c9832e9e", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10151", "tx": "0xc5b8d617e516a179585e33ea329805bbea7a1cadf0e9df3462b5ad20252b0a33", "status": "0x1", "gas": 51328}
+{"what": "prices e10151", "tx": "0x5529e10bce70e5facb12b701d9c91459e4f2220dfb236c36bc09e0387f001937", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10151", "tx": "0xc37a682ad1cf33ffdf595f03f53edf4583ceae7c6ff620a1d9c26e9b96e1779e", "status": "0x1", "gas": 2167830}
+{"what": "momentum settle e10151", "tx": "0xa2519ed5e3b2c1a7e272fa03fc0d9fd9ec616019a2b6e55c6c5bd5397474bd10", "status": "0x1", "gas": 2070519}
+{"what": "mean-reversion settle e10151", "tx": "0x84f3b2d836b6d1c2a4bf50c666a9656842ca0497e41bd77f6a6bfd5353b45741", "status": "0x1", "gas": 2070447}
+{"what": "momentum commit e10152", "tx": "0x6c6b0d2aaa9df4bdebf8b7977bcb162ca9c034eee8cf5eac9a397f59e6a4e166", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10152", "tx": "0x2ff086e9e13194f3baff480d62874180a307d6b2d6d2ced1f5ddd92ab07d9e7c", "status": "0x1", "gas": 51328}
+{"what": "prices e10152", "tx": "0x75e1a31d46d18870afc98729baaa56ee89f12fd71a6e548da886283e8cab5aba", "status": "0x1", "gas": 73239}
+{"what": "netting proof e10152", "tx": "0xb198a2c94bff3d3bd880d10cdb8e730e41ba9b08218aff378aa6db29d1d94ec3", "status": "0x1", "gas": 2167926}
+{"what": "momentum settle e10152", "tx": "0xc2a8925dc8dcf61e110ac5708b5a1c783bbc011070e659e9d3a1ca4b0ea557de", "status": "0x1", "gas": 2070907}
+{"what": "mean-reversion settle e10152", "tx": "0xd263e0904406c4d3333ee38a51df64d12c31a07750233a210d74138eb95c16cc", "status": "0x1", "gas": 2070519}
+{"what": "momentum commit e10153", "tx": "0xd064f90ad67d770e9bdc8318478fada23f37053cce341a98bf0d0bff6a5e8b7b", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10153", "tx": "0x23dcf43a3d2af2e4e4dd256efada692e4489e903c2ddb38155dd421c06a2afae", "status": "0x1", "gas": 51328}
+{"what": "prices e10153", "tx": "0x888802301a3c0cc1276998199687db5188be0ade10f8278f746c352f50ca5e64", "status": "0x1", "gas": 73251}
+{"what": "netting proof e10153", "tx": "0xa96cb7884b033382f1bc6ecd2201efe5011b9ee0526f5ee76f26db6b906d1a01", "status": "0x1", "gas": 2167926}
+{"what": "momentum settle e10153", "tx": "0x9ededaa7aa2467b93894a73aa6567a0c67fd3f94a4a569dedf88e2ec061dc697", "status": "0x1", "gas": 2070799}
+{"what": "mean-reversion settle e10153", "tx": "0xd774739abded48e10225cc9231095a847f28698b713de87bf6e1d2d7c172a233", "status": "0x1", "gas": 2070435}
+{"what": "momentum commit e10154", "tx": "0xa5cb44033d33c0b9f55f03ef4f2d2a4bcb753e5ff18cb75f33a8840fa5ce80c8", "status": "0x1", "gas": 51316}
+{"what": "mean-reversion commit e10154", "tx": "0xeb156a43748e92aa0bfa49f7117d9f2465dfc8f917ec74a40013e97c75b04423", "status": "0x1", "gas": 51328}
