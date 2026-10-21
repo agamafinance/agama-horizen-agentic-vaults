@@ -112,18 +112,21 @@ function spark(points, cap) {
   const hub = new ethers.Contract(HUB, ABI, provider);
   const [count, cap, epoch] = await Promise.all([hub.strategyCount(), hub.sandboxCapital(), hub.currentEpoch()]);
   const capital = Number(cap) / 1e6;
-  // the RPC caps log queries at 100,000 blocks and Horizen makes one a second,
-  // so walk the range in chunks
+  // the RPC caps log queries at 100,000 blocks and Horizen makes one a second.
+  // The full history is thousands of proofs, so the chart reads the last
+  // twelve hours and the count comes from the strategies themselves.
   const head = await provider.getBlockNumber();
   const logs = [];
-  for (let a = FROM; a <= head; a += 90000) {
+  for (let a = Math.max(FROM, head - 43200); a <= head; a += 90000) {
     logs.push(...await hub.queryFilter(hub.filters.EpochSettled(), a, Math.min(a + 89999, head)));
   }
+  const strategies = await Promise.all([...Array(Number(count)).keys()].map(i => hub.strategy(i)));
+  const proven = strategies.reduce((n, s) => n + Number(s.epochsSettled), 0);
   document.getElementById("meta").innerHTML =
-    `Hub <a target="_blank" href="${EXPLORER}/address/${HUB}">${HUB.slice(0,10)}…</a> · epoch ${epoch} · ${logs.length} proofs verified on chain`;
+    `Hub <a target="_blank" href="${EXPLORER}/address/${HUB}">${HUB.slice(0,10)}…</a> · epoch ${epoch} · ${proven} proofs verified on chain · charts show the last 12 hours`;
   const grid = document.getElementById("grid");
   for (let i = 0; i < Number(count); i++) {
-    const s = await hub.strategy(i);
+    const s = strategies[i];
     if (!s.started || s.name === "attacker") continue; // the attack strategy is listed below
     const pts = logs.filter(l => Number(l.args.id) === i).map(l => ({epoch:Number(l.args.epoch), nav:Number(l.args.nav)/1e6, tx:l.transactionHash}));
     const nav = Number(s.nav) / 1e6, ret = (nav - capital) / capital * 100;
@@ -219,10 +222,15 @@ let signer = null, me = null;
 const u6 = v => (Number(v) / 1e6).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const ASSET = ["ETH", "BTC", "ZEN"];
 
+// event logs are cached per filter, so a refresh only reads the new blocks
+const logCache = new Map();
 async function logsOf(filter) {
-  const head = await ro.getBlockNumber(), out = [];
-  for (let a = VFROM; a <= head; a += 90000) out.push(...await vhub.queryFilter(filter, a, Math.min(a + 89999, head)));
-  return out;
+  const key = JSON.stringify(await filter.getTopicFilter());
+  const c = logCache.get(key) || {next: VFROM, logs: []};
+  const head = await ro.getBlockNumber();
+  for (let a = c.next; a <= head; a += 90000) c.logs.push(...await vhub.queryFilter(filter, a, Math.min(a + 89999, head)));
+  c.next = head + 1; logCache.set(key, c);
+  return c.logs;
 }
 
 async function loadVaults() {
@@ -238,6 +246,9 @@ async function loadVaults() {
   document.getElementById("vmeta").innerHTML =
     `VaultHub <a target="_blank" href="${EXPLORER}/address/${VHUB}">${VHUB.slice(0,10)}…</a> · epoch ${epoch} · ${settled.length} vault epochs proven on chain · ranked by proven return`;
   const g = document.getElementById("vgrid");
+  // a refresh rebuilds the cards: keep what the user is typing
+  const typed = Object.fromEntries([...g.querySelectorAll(".amt")].map(x => [x.id, x.value]));
+  const focused = document.activeElement && document.activeElement.id;
   g.innerHTML = "";
   for (const v of vs) {
     const s = v.s, open = Number(s.epochsSettled) >= Number(sandbox);
@@ -264,6 +275,8 @@ async function loadVaults() {
         ${open ? "" : `<div class="note">Opens to outside deposits after ${sandbox} proven epochs, about an hour.</div>`}` : ""}
     </div>`);
   }
+  for (const [id, v] of Object.entries(typed)) { const x = document.getElementById(id); if (x) x.value = v; }
+  if (focused && focused.startsWith("amt")) document.getElementById(focused)?.focus();
   document.querySelectorAll("[data-dep]").forEach(b => b.onclick = () => act(() => depositTo(Number(b.dataset.dep))));
   document.querySelectorAll("[data-red]").forEach(b => b.onclick = () => act(() => redeemAll(Number(b.dataset.red))));
   if (me) await loadClaims();
@@ -275,16 +288,23 @@ async function loadClaims() {
   for (const l of evs) {
     const id = Number(l.args.id), e = Number(l.args.epoch), k = id + ":" + e;
     if (seen.has(k)) continue; seen.add(k);
-    const [d, q, r] = await Promise.all([vhub.depositOf(id, e, me), vhub.redeemOf(id, e, me), vhub.result(id, e)]);
+    const [d, q, r, s, now] = await Promise.all([vhub.depositOf(id, e, me), vhub.redeemOf(id, e, me), vhub.result(id, e), vhub.strategy(id), vhub.currentEpoch()]);
     if (d === 0n && q === 0n) continue;
     const what = [d > 0n ? `deposit of ${u6(d)} tUSDC` : "", q > 0n ? `redemption of ${u6(q)} shares` : ""].filter(Boolean).join(" and ");
-    rows.push(`<div class="atk"><b>Vault ${id}, epoch ${e}.</b> <span>Your ${what} ${r.settled ? "is settled at the proven NAV." : "waits for the epoch's proof."}</span>
-      ${r.settled ? `<button data-claim="${id}:${e}">Claim</button>` : ""}</div>`);
+    // an epoch that can no longer be proven: the contract hands the flow back
+    const dead = !r.settled && (s.frozen || (s.started && e <= Number(s.lastEpoch)) || Number(now) > e + 20);
+    const status = r.settled ? "is settled at the proven NAV." : dead ? "was never proven, so the contract gives it back." : "waits for the epoch's proof.";
+    rows.push(`<div class="atk"><b>${s.name}, epoch ${e}.</b> <span>Your ${what} ${status}</span>
+      ${r.settled ? `<button data-claim="${id}:${e}">Claim</button>` : dead ? `<button data-reclaim="${id}:${e}">Take it back</button>` : ""}</div>`);
   }
   document.getElementById("claims").innerHTML = rows.length ? `<h3>Your pending claims</h3>${rows.join("")}` : "";
   document.querySelectorAll("[data-claim]").forEach(b => b.onclick = () => act(() => {
     const [id, e] = b.dataset.claim.split(":").map(Number);
     return vhub.connect(signer).claim(id, e);
+  }));
+  document.querySelectorAll("[data-reclaim]").forEach(b => b.onclick = () => act(() => {
+    const [id, e] = b.dataset.reclaim.split(":").map(Number);
+    return vhub.connect(signer).reclaim(id, e);
   }));
 }
 
