@@ -52,14 +52,16 @@ def oracle_key():
 
 
 def sh(*args, attempts=6):
-    """Run a command. A failure to reach the RPC, or the RPC's rate limit, is
-    retried: the request never got through, so nothing was sent. Any other
-    failure stops the run."""
+    """Run a command. A failure to reach the RPC, its rate limit, or a nonce race
+    with the other runner is retried: the transaction was not accepted, so
+    nothing was sent. Any other failure stops the run."""
     for i in range(attempts):
         r = subprocess.run(args, capture_output=True, text=True)
         if r.returncode == 0:
             return r.stdout.strip()
-        transient = "error sending request" in r.stderr or "429" in r.stderr or "Bandwidth limit" in r.stderr
+        # the oracle key is shared by both hubs' runners, so two sends can race on a nonce
+        transient = any(m in r.stderr for m in ("error sending request", "429", "Bandwidth limit", "nonce too low",
+                                                 "replacement transaction underpriced", "already known"))
         if not transient or i == attempts - 1:
             raise RuntimeError(r.stderr.strip()[-400:])
         print(f"RPC unreachable or rate limited, retrying in {10 * (i + 1)} s", flush=True)
